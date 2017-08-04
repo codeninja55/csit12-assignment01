@@ -17,13 +17,14 @@ Advanced level assignments have additional requirements beyond the standard vers
 There are three kinds of cards: AnonCard, BasicCard and PremiumCard. There is one kind of Purchase. Both AnonCard and BasicCard are free, while a PremiumCard has a $25 sign-up fee. A customer can also make purchases with cash; in which case there are no points accumulated.
 
 Each Card has:
-*  ID
-*  points (the number of shopping points earned)
+
++ ID
++ points (the number of shopping points earned)
 
 A Basic Card and Premium Card also have:
-*   name
-*   email
-*   balance (total value of prior purchases)
+- name
+- email
+- balance (total value of prior purchases)
 
 Each card has a different rule for calculating points.
 *   AnonCard: 1.0% of a purchase
