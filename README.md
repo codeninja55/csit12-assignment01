@@ -34,10 +34,11 @@ Each card has a different rule for calculating points.
 + PremiumCard: 2.5% of a purchase (if the purchase amount < 40 and balance < 1000) otherwise 3.0% of a purchase.
 
 A purchase has:
-+ reciept ID
-+ card ID (or null if the purchase was made with cash)
-+ time
-+ purchase details (defined next)
+
+*   reciept ID
+*   card ID (or null if the purchase was made with cash)
+*   time
+*   purchase details (defined next)
 
 To preserve some privacy, this shop does not record the details of every item purchased but only the amount purchased in a number of categories.
 
