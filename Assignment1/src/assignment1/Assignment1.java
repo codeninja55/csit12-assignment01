@@ -7,23 +7,30 @@ import java.util.*;
  * Email: dbac496@uowmail.edu.au
  */
 
+// TODO Question: Do you make the card first or the card based on a purchase?
+
 public class Assignment1 {
 
     static private ArrayList<Card> cards = new ArrayList<Card>();
     static private ArrayList<Purchase> purchases = new ArrayList<Purchase>();
+    static private Scanner input = new Scanner(System.in);
+    static private Helper helper = new Helper(); // helper class to print menu's to console
+
+    /* BETA | Purchase Details List */
+    static private final double laptops = 0;
+    static private final double systems = 0;
+    static private final double peripherals = 0;
+    static private final double multimedia = 0;
+    static private final double accessories = 0;
 
     public static void main(String[] args) {
-        int menuChoice;
-        Boolean change = true;
 
         System.out.printf("%n%nWelcome to Card Analytics%n%n");
 
-        do {
-            printMenu();
-            Scanner input = new Scanner(System.in);
-            System.out.print("\nEnter your option: ");
+        while (true) {
+            helper.printMenu();
 
-            menuChoice = input.nextInt();
+            int menuChoice = helper.userSelection();
             // TODO need to fix InputMismatchException
 
             switch (menuChoice) {
@@ -37,21 +44,51 @@ public class Assignment1 {
                 case 4: makePurchase();
                         break;
             }
-        } while (change);
-
-        //System.out.println(testBasic.getDetails());
-        //makePurchase();
-        //System.out.println(purchases.get(0).toString());
+        }
     } // end of main method
 
-    public static void printMenu() {
-        System.out.printf("\nPlease choose from below:\n" +
-        "[ 1 ] Show All Cards\n" +
-        "[ 2 ] Show All Purchases\n" +
-        "[ 3 ] Add Card\n" +
-        "[ 4 ] Add Purchase\n" +
-        "[ 0 ] Exit\n");
+    /****** SETTERS ******/
+
+    private static void makePurchase() {
+        //purchases.add(new Purchase(11111, 1234, "Laptops"));
+
+        
+
+        purchases.add(new Purchase());
+
     }
+
+    // Unfinished
+    private static void addCard() {
+        /*cards.add(new BasicCard("1235", 1000.0,
+                "Scarlett Johansson", "scarlett@marvel.com", 100.0));
+        cards.add(new BasicCard("1234", 1000.0,
+                "Andrew Che", "andrew@codeninja55.me", 100.0));*/
+        helper.addCardMenu();
+        int cardChoice = helper.userSelection();
+
+        switch (cardChoice) {
+            case 0: break;
+            case 1:
+                System.out.print("Enter the Card ID:  ");
+                String cardID = input.nextLine();
+                cards.add(new AnonCard(cardID));
+                break;
+            case 2:
+                System.out.print("Enter the Card ID:  ");
+                String cardID = input.nextLine();
+                System.out.print("Enter Customer's Name:  ");
+                String name = input.nextLine();
+                System.out.print("Enter Customer's Email:  ");
+                String email = input.nextLine();
+
+                break;
+            case 3:
+                break;
+        }
+    }
+
+    /****** GETTERS ******/
 
     public static void showCards() {
         for (Card card : cards) {
@@ -61,23 +98,8 @@ public class Assignment1 {
 
     public static void showPurchases() {
             for (Purchase purchase : purchases) {
-                System.out.println(purchase.toString())
+                System.out.println(purchase.toString());
             }
-    }
-
-    /****** SETTERS ******/
-
-    public static void makePurchase() {
-        purchases.add(new Purchase(11111, 1234, "Laptops"));
-    }
-
-    public static void addCard() {
-        //BasicCard testBasic = new BasicCard("1234", 1000.0,
-        //        "Andrew Che", "andrew@codeninja55.me", 100.0);
-        cards.add(new BasicCard("1235", 1000.0,
-                "Scarlett Johansson", "scarlett@marvel.com", 100.0));
-        cards.add(new BasicCard("1234", 1000.0,
-                "Andrew Che", "andrew@codeninja55.me", 100.0));
     }
 
 } // end of Assignment1 class

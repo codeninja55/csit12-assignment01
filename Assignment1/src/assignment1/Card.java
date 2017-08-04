@@ -21,11 +21,8 @@ public class Card {
     }
 
     // constructor that initializes card properly
-    public Card(String id, double points) {
-        this.id = id;
-        this.points = points;
+    public Card(String id) {
+        this.id = id;;
     }
-
-
 
 }

@@ -16,6 +16,7 @@ public class PremiumCard extends Card {
     private String name;
     private String email;
     private double balance;
+    private final String CARD_TYPE = "Premium Card";
 
     /****** CONSTRUCTORS ******/
 
@@ -47,8 +48,11 @@ public class PremiumCard extends Card {
 
     /****** GETTERS ******/
     public String getDetails() {
-        return "\nID: " + super.id + "\nName: " + this.name +
-                "\nEmail: " + this.email + "\nBalance: " + this.balance +
-                "\nPoints: " + super.points;
+        return "\nID: " + super.id +
+                "\nCard Type: " + this.CARD_TYPE +
+                "\nName: " + this.name +
+                "\nEmail: " + this.email +
+                "\nBalance: " + this.balance +
+                "\nPoints: " + super.points + "\n";
     }
 }
