@@ -1,4 +1,4 @@
-package assignment1;
+//package assignment1;
 
 /*
  *
@@ -28,9 +28,9 @@ public class BasicCard extends Card {
     }
 
     // constructor with details
-    public BasicCard(String id, double points, String name, 
+    public BasicCard(String id, double points, String name,
                      String email, double balance) {
-        
+
         super.id = id;
         super.points = points;
         this.name = name;
@@ -45,7 +45,7 @@ public class BasicCard extends Card {
     }
 
     /****** GETTERS ******/
-    public String getDetails() {
+    public String toString() {
         return "\nCard ID: " + super.id + "\nName: " + this.name +
                 "\nEmail: " + this.email + "\nBalance: " + this.balance +
                 "\nPoints: " + super.points;

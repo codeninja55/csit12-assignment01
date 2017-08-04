@@ -1,4 +1,4 @@
-package assignment1;
+//package assignment1;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,7 +13,9 @@ import java.util.Date;
 public class Purchase {
     private int receiptID;
     private int cardID;
-    private String purchaseDetails;
+    String purchaseDetails;
+    String[] detailsArr = {"Laptops","Systems","Peripherals",
+    "Multimedia","Accessories"};
 
     private Date purchaseTime;
 
@@ -22,12 +24,20 @@ public class Purchase {
     public Purchase(int receiptID, int cardID, String purchaseDetails) {
         this.receiptID = receiptID;
         this.cardID = cardID;
-        this.purchaseDetails = purchaseDetails;
         this.purchaseTime = setPurchaseTime();
-    }
+
+        for (String cat : detailsArr) {
+            if (purchaseDetails.equalsIgnoreCase(cat)) {
+                this.purchaseDetails = cat;
+                break;
+            } else {
+                System.out.println("Wrong category!");
+            }
+        }
+    } // end of constructor
 
     /****** GETTERS ******/
-    public String getDetails() {
+    public String toString() {
         return "\nReceipt ID: " + this.receiptID + "\nCard ID: " + this.cardID +
                 "\nPurchase Time: " + this.purchaseTime + "\nPurchase Details: " +
                 this.purchaseDetails;
@@ -44,5 +54,5 @@ public class Purchase {
 
         return now;
     }
-      
+
 }
