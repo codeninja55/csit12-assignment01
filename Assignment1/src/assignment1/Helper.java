@@ -20,8 +20,9 @@ public class Helper {
         System.out.printf("\nPlease choose from below:\n" +
                 "[ 1 ] Show All Cards\n" +
                 "[ 2 ] Show All Purchases\n" +
-                "[ 3 ] Add Card\n" +
-                "[ 4 ] Add Purchase\n" +
+                "[ 3 ] Add Purchase\n" +
+                "[ 4 ] Add Card\n" +
+                "[ 5 ] Show Total Purchases\n" +
                 "[ 0 ] Exit\n");
     }
 
@@ -34,10 +35,12 @@ public class Helper {
     }
 
     public void purchaseMenu() {
-        System.out.printf("%nPlease choose from below:%n" +
-                "[ 1 ] Anon Card%n" +
-                "[ 2 ] Basic Card%n" +
-                "[ 3 ] Premium Card%n" +
+        System.out.printf("%nPlease Purchase Category from Below choose from below:%n" +
+                "[ 1 ] Laptops%n" +
+                "[ 2 ] Systems%n" +
+                "[ 3 ] Peripherals%n" +
+                "[ 4 ] Multimedia%n" +
+                "[ 5 ] Accessories%n" +
                 "[ 0 ] Exit%n");
     }
 }

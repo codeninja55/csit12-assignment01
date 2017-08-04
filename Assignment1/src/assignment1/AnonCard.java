@@ -8,17 +8,18 @@
 
 public class AnonCard extends Card {
     private static final double POINTS_RATE = 0.01;
-    private final String CARD_TYPE = "Anon Card";
 
     /****** CONSTRUCTORS ******/
 
     // default constructor
     public AnonCard() {
-        super.id = "";
+        super.id = 0;
         super.points = 0;
+        super.cardType = "AnonCard";
     }
 
-    public AnonCard(String id) {
+    public AnonCard(int id) {
+        super.cardType = "AnonCard";
         super.id = id;
         super.points = 0;
     }
@@ -27,8 +28,12 @@ public class AnonCard extends Card {
 
     /****** GETTERS ******/
     public String toString() {
-        return "\nCard Type: " + this.CARD_TYPE + "\nCard ID: " + super.id +
+        return "\nCard Type: " + super.cardType +
+                "\nCard ID: " + super.id +
                 "\nPoints: " + super.points + "\n";
     }
 
+    public String getCardType() {
+        return super.cardType;
+    }
 }

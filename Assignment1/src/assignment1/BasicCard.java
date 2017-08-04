@@ -14,14 +14,13 @@ public class BasicCard extends Card {
     private String name;
     private String email;
     private double balance;
-    private final String CARD_TYPE = "Basic Card";
-
 
     /****** CONSTRUCTORS ******/
 
     // default constructor
     public BasicCard() {
-        super.id = "";
+        super.cardType = "BasicCard";
+        super.id = 0;
         super.points = 0;
         this.name = "";
         this.email = "";
@@ -29,12 +28,13 @@ public class BasicCard extends Card {
     }
 
     // constructor with details
-    public BasicCard(String id, String name, String email) {
-
+    public BasicCard(int id, String name, String email) {
+        super.cardType = "BasicCard";
         super.id = id;
         super.points = 0;
         this.name = name;
         this.email = email;
+        this.balance = 0;
 
         // validate to make sure entered balance is not negative
         // Consider when creating a card for the first time the balance would have to be zero
@@ -45,14 +45,22 @@ public class BasicCard extends Card {
         }*/
     }
 
+    /****** SETTERS ******/
+    public void setPoints(double purchaseAmount) {
+        super.points = POINTS_RATE * purchaseAmount;
+    }
+
     /****** GETTERS ******/
     public String toString() {
         return "\nCard ID: " + super.id +
-                "\nCard Type: " + this.CARD_TYPE +
+                "\nCard Type: " + super.cardType +
                 "\nName: " + this.name +
                 "\nEmail: " + this.email +
                 "\nBalance: " + this.balance +
                 "\nPoints: " + super.points + "\n";
     }
 
+    public String getCardType() {
+        return this.cardType;
+    }
 }

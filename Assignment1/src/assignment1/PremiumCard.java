@@ -1,11 +1,9 @@
 //package assignment1;
 
 /*
- *
  * @author Dinh Che
  * Student Number: 5721970
  * Email: dbac496@uowmail.edu.au
- *
  */
 
 public class PremiumCard extends Card {
@@ -16,13 +14,13 @@ public class PremiumCard extends Card {
     private String name;
     private String email;
     private double balance;
-    private final String CARD_TYPE = "Premium Card";
+    private final String CARD_TYPE = "PremiumCard";
 
     /****** CONSTRUCTORS ******/
 
     // default constructor
     public PremiumCard() {
-        super.id = "";
+        super.id = 0;
         super.points = 0;
         this.name = "";
         this.email = "";
@@ -30,7 +28,7 @@ public class PremiumCard extends Card {
     }
 
     // constructor with details
-    public PremiumCard(String id, double points, String name,
+    public PremiumCard(int id, double points, String name,
                      String email, double balance) {
 
         super.id = id;
@@ -46,6 +44,8 @@ public class PremiumCard extends Card {
         }
     }
 
+    /****** SETTERS ******/
+
     /****** GETTERS ******/
     public String getDetails() {
         return "\nID: " + super.id +
@@ -54,5 +54,9 @@ public class PremiumCard extends Card {
                 "\nEmail: " + this.email +
                 "\nBalance: " + this.balance +
                 "\nPoints: " + super.points + "\n";
+    }
+
+    public String getCardType() {
+        return this.CARD_TYPE;
     }
 }

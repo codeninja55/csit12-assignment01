@@ -12,18 +12,35 @@ public class Purchase {
     private int receiptID;
     private int cardID;
     private String purchaseDetails;
-    private final String[] DETAILS_ARR = {"Laptops","Systems","Peripherals","Multimedia","Accessories"};
-    private final String[] PURCHASE_TYPE = {"Cash","Anon Card","Basic Card","Premium Card"};
+    private double purchaseAmount;
+    //private final String[] DETAILS_ARR = {"Laptops","Systems","Peripherals","Multimedia","Accessories"};
+    private String purchaseType;
 
     private Date purchaseTime;
 
     /****** CONSTRUCTORS ******/
 
-    public Purchase(int receiptID, int cardID, String purchaseDetails) {
+    // constructor for cash purchases
+    public Purchase(int receiptID, String purchaseDetails,
+                    double purchaseAmount) {
+        this.receiptID = receiptID;
+        this.cardID = 0; // TODO this value should be null
+        this.purchaseType = "Cash";
+        this.purchaseDetails = purchaseDetails;
+        this.purchaseAmount = purchaseAmount;
+
+        this.purchaseTime = setPurchaseTime();
+    }
+
+    public Purchase(int receiptID, double purchaseAmount, String purchaseDetails,
+                    int cardID, String purchaseType) {
+
         this.receiptID = receiptID;
         this.cardID = cardID;
+        this.purchaseAmount = purchaseAmount;
+        this.purchaseDetails = purchaseDetails;
         this.purchaseTime = setPurchaseTime();
-
+        this.purchaseType = purchaseType;
 
         /*for (String cat : DETAILS_ARR) {
             if (purchaseDetails.equalsIgnoreCase(cat)) {
@@ -35,14 +52,6 @@ public class Purchase {
         }*/
     } // end of constructor
 
-    /****** GETTERS ******/
-
-    public String toString() {
-        return "\nReceipt ID: " + this.receiptID + "\nCard ID: " + this.cardID +
-                "\nPurchase Time: " + this.purchaseTime + "\nPurchase Details: " +
-                this.purchaseDetails;
-    }
-
     /****** SETTERS ******/
 
     private Date setPurchaseTime() {
@@ -53,6 +62,21 @@ public class Purchase {
         // a java current time (now) instance
         // java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
         return now;
+    }
+
+    /****** GETTERS ******/
+
+    public String toString() {
+        return "\nReceipt ID: " + this.receiptID +
+                "\nCard ID: " + this.cardID +
+                "\nCard Type: " + this.purchaseType +
+                "\nPurchase Time: " + this.purchaseTime +
+                "\nPurchase Details: " + this.purchaseDetails +
+                "\nPurchase Amount: " + this.purchaseAmount + "\n";
+    }
+
+    public double getAmount() {
+        return this.purchaseAmount;
     }
 
 }
