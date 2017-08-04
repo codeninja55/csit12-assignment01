@@ -8,10 +8,13 @@ package assignment1;
  *
  */
 
-public class BasicCard extends assignment1.Card {
+public class BasicCard extends Card {
+    private static final double POINTS_RATE = 0.015;
+
     private String name;
     private String email;
     private double balance;
+
 
     /****** CONSTRUCTORS ******/
 
@@ -43,7 +46,7 @@ public class BasicCard extends assignment1.Card {
 
     /****** GETTERS ******/
     public String getDetails() {
-        return "\nID: " + super.id + "\nName: " + this.name +
+        return "\nCard ID: " + super.id + "\nName: " + this.name +
                 "\nEmail: " + this.email + "\nBalance: " + this.balance +
                 "\nPoints: " + super.points;
     }

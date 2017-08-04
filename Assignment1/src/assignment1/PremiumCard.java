@@ -8,7 +8,11 @@ package assignment1;
  *
  */
 
-public class PremiumCard extends assignment1.Card {
+public class PremiumCard extends Card {
+    private static final double POINTS_RATE_LOW = 0.025;
+    private static final double POINTS_RATE_HIGH = 0.03;
+    private static final double SIGNUP_FEE = 25.0;
+
     private String name;
     private String email;
     private double balance;
