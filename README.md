@@ -2,7 +2,7 @@
 ##Assignment 1 (due in week 4 & 5)
 
 
-The scenario for this semester’s assignments is 'big data' or rather data analytics over shopping data. Each time a shop customer uses a point-card or similar, they are providing a rich history of their purchases to the shop which is then combined with customer information (which may be partially sources from elsewhere) to support marketing campaigns.
+The scenario for this semesterï¿½s assignments is 'big data' or rather data analytics over shopping data. Each time a shop customer uses a point-card or similar, they are providing a rich history of their purchases to the shop which is then combined with customer information (which may be partially sources from elsewhere) to support marketing campaigns.
 
 There are three assignments. All use this scenario. In the first assignment the focus is defining and testing the basic classes that will be needed. The focus of the second assignment is creating a GUI that supports user interaction. The focus of the third and final assignment is storage and analytics, that is, supports offline storage in text files and supports analytics over the data.
 
@@ -22,11 +22,13 @@ Each Card has:
 + points (the number of shopping points earned)
 
 A Basic Card and Premium Card also have:
+
 + name
 + email
 + balance (total value of prior purchases)
 
 Each card has a different rule for calculating points.
+
 + AnonCard: 1.0% of a purchase
 + BasicCard: 1.5% of a purchase (if balance < 500) otherwise 2.0% of a purchase
 + PremiumCard: 2.5% of a purchase (if the purchase amount < 40 and balance < 1000) otherwise 3.0% of a purchase.
@@ -87,7 +89,7 @@ The advanced level includes all the requirements of the standard level plus the 
 
 1.  The purchase details are a flexible number of categories. For example cat-A, cat-B, cat-C, cat-D, cat-E, cat-F ... Do not use these names, think of a shop, and create your own meaningful category names. The purchase details that need to be stored are: for each category the purchase amount. You will also need to store the category names somewhere.
 2.  The user can enter via the console an arbitrary number of thresholds (instead of the three required in standard deliverable number 4), then these thresholds will be used when reporting the number of customers in each of these point 'bands'.
-3.  Reorganise your code so that there is an additional Shop class. The shop class has two attributes: (i) a list of cards and (ii) a list of purchases. The makePurchase method should be moved into the Shop class. New purchase obejcts should only be created in the Shop class. You’ll need to create a shop in your main method. Testing should then be done via various Shop class methods.
+3.  Reorganise your code so that there is an additional Shop class. The shop class has two attributes: (i) a list of cards and (ii) a list of purchases. The makePurchase method should be moved into the Shop class. New purchase obejcts should only be created in the Shop class. Youï¿½ll need to create a shop in your main method. Testing should then be done via various Shop class methods.
 
 
 ###Marking (CSIT121 students)
@@ -118,4 +120,4 @@ Your work must be ready for marking 30 minutes after the start of the laboratory
 
 ####**You must submit your Java project** (zip your project directory) **via the eLearning site** (the assignment 1 drop box) once you have been successfully marked in the laboratory.
 
-CSIT121 © Mark Sifer 2017
+CSIT121 ï¿½ Mark Sifer 2017
