@@ -18,20 +18,20 @@ There are three kinds of cards: AnonCard, BasicCard and PremiumCard. There is on
 
 Each Card has:
 
-+ ID
-+ points (the number of shopping points earned)
+*   ID
+*   points (the number of shopping points earned)
 
 A Basic Card and Premium Card also have:
 
-+ name
-+ email
-+ balance (total value of prior purchases)
+*   name
+*   email
+*   balance (total value of prior purchases)
 
 Each card has a different rule for calculating points.
 
-+ AnonCard: 1.0% of a purchase
-+ BasicCard: 1.5% of a purchase (if balance < 500) otherwise 2.0% of a purchase
-+ PremiumCard: 2.5% of a purchase (if the purchase amount < 40 and balance < 1000) otherwise 3.0% of a purchase.
+*   AnonCard: 1.0% of a purchase
+*   BasicCard: 1.5% of a purchase (if balance < 500) otherwise 2.0% of a purchase
+*   PremiumCard: 2.5% of a purchase (if the purchase amount < 40 and balance < 1000) otherwise 3.0% of a purchase.
 
 A purchase has:
 
@@ -64,14 +64,15 @@ To preserve some privacy, this shop does not record the details of every item pu
 The purchase details are a hardcoded number of categories (up to 5). For example cat-A, cat-B, cat-C, cat-D and cat-E. Do not use these names, think of a shop, and create your own meaningful category names. The purchase details that need to be stored are: for each category the purchase amount.
 
 One way to store a purchase (standard level) is:
-+ reciept ID
-+ card ID (or null of the purchase was made with cash)
-+ time
-+ cat_A amount
-+ cat_B amount
-+ cat_C amount
-+ cat_D amount
-+ cat_E amount
+
+*   reciept ID
+*   card ID (or null of the purchase was made with cash)
+*   time
+*   cat_A amount
+*   cat_B amount
+*   cat_C amount
+*   cat_D amount
+*   cat_E amount
 
 Note this may not be the best way.
 
