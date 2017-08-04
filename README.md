@@ -17,8 +17,8 @@ Advanced level assignments have additional requirements beyond the standard vers
 There are three kinds of cards: AnonCard, BasicCard and PremiumCard. There is one kind of Purchase. Both AnonCard and BasicCard are free, while a PremiumCard has a $25 sign-up fee. A customer can also make purchases with cash; in which case there are no points accumulated.
 
 Each Card has:
-*    ID
-*    points (the number of shopping points earned)
+*  ID
+*  points (the number of shopping points earned)
 
 A Basic Card and Premium Card also have:
 *   name
@@ -31,10 +31,10 @@ Each card has a different rule for calculating points.
 *   PremiumCard: 2.5% of a purchase (if the purchase amount < 40 and balance < 1000) otherwise 3.0% of a purchase.
 
 A purchase has:
- * reciept ID
- * card ID (or null if the purchase was made with cash)
- * time
- * purchase details (defined next)
+* reciept ID
+* card ID (or null if the purchase was made with cash)
+* time
+* purchase details (defined next)
 
 To preserve some privacy, this shop does not record the details of every item purchased but only the amount purchased in a number of categories.
 
