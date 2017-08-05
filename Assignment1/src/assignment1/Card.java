@@ -26,10 +26,9 @@ public abstract class Card {
     public Card(String id) { this.id = id; }
 
     /****** SETTERS ******/
-    public void setPoints(double points) { this.points = points; }
+    public void setPoints(double totalAmount) { }
+    public void setBalance(double totalAmount) { }
 
     /****** GETTERS ******/
-    public String getCardType() {
-        return this.cardType;
-    }
+    public String getCardType() { return this.cardType; }
 }
