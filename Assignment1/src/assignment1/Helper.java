@@ -33,13 +33,31 @@ public class Helper {
                 "[ 0 ] Exit%n");
     }
 
-    public void purchaseMenu() {
-        System.out.printf("%nPlease select Purchase Category from below:%n" +
-                "[ 1 ] Laptops%n" +
-                "[ 2 ] Systems%n" +
+    public String categoriesSelection() {
+        int selection = this.userSelection();
+
+        switch(selection) {
+            case 0: return "";
+            case 1: return "Systems";
+            case 2: return "Laptops";
+            case 3: return "Peripherals";
+            case 4: return "Multimedia";
+            case 5: return "Accessories";
+            default: return "";
+        } // TODO add thrown exception
+    }
+
+    public void categoriesMenu() {
+
+        /* TODO Use a dynamic array to create this menu with a loop
+           TODO Use an array method to pop off menu items */
+
+        System.out.printf("%nPlease select Purchase Category from below to add amount:%n" +
+                "[ 1 ] Systems%n" +
+                "[ 2 ] Laptops%n" +
                 "[ 3 ] Peripherals%n" +
                 "[ 4 ] Multimedia%n" +
                 "[ 5 ] Accessories%n" +
-                "[ 0 ] Exit%n");
+                "[ 0 ] Finished%n");
     }
 }
