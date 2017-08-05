@@ -8,28 +8,24 @@
  *
  */
 
-public class Card {
-    protected int id;
+public abstract class Card {
+    protected String id;
     protected double points;
     protected String cardType;
     /****** CONSTRUCTORS ******/
 
     // default constructor
     public Card() {
-        this.id = 0;
+        this.id = null;
         this.points = 0;
         this.cardType = "";
     }
 
     // constructor that initializes card properly
-    public Card(int id) {
-        this.id = id;
-    }
+    public Card(String id) { this.id = id; }
 
     /****** SETTERS ******/
-    public void setPoints(double points) {
-        this.points = points;
-    }
+    public void setPoints(double points) { this.points = points; }
 
     /****** GETTERS ******/
     public String getCardType() {

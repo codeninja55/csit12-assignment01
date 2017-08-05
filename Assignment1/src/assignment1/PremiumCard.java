@@ -20,7 +20,7 @@ public class PremiumCard extends Card {
 
     // default constructor
     public PremiumCard() {
-        super.id = 0;
+        super.id = null;
         super.points = 0;
         this.name = "";
         this.email = "";
@@ -28,7 +28,7 @@ public class PremiumCard extends Card {
     }
 
     // constructor with details
-    public PremiumCard(int id, double points, String name,
+    public PremiumCard(String id, double points, String name,
                      String email, double balance) {
 
         super.id = id;
@@ -56,7 +56,5 @@ public class PremiumCard extends Card {
                 "\nPoints: " + super.points + "\n";
     }
 
-    public String getCardType() {
-        return this.CARD_TYPE;
-    }
+    public String getCardType() { return this.CARD_TYPE; }
 }

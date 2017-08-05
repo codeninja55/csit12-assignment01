@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class Purchase {
     private int receiptID;
-    private int cardID;
+    private String cardID;
     private String purchaseDetails;
     private double purchaseAmount;
     //private final String[] DETAILS_ARR = {"Laptops","Systems","Peripherals","Multimedia","Accessories"};
@@ -24,7 +24,7 @@ public class Purchase {
     public Purchase(int receiptID, String purchaseDetails,
                     double purchaseAmount) {
         this.receiptID = receiptID;
-        this.cardID = 0; // TODO this value should be null
+        this.cardID = null;
         this.purchaseType = "Cash";
         this.purchaseDetails = purchaseDetails;
         this.purchaseAmount = purchaseAmount;
@@ -33,7 +33,7 @@ public class Purchase {
     }
 
     public Purchase(int receiptID, double purchaseAmount, String purchaseDetails,
-                    int cardID, String purchaseType) {
+                    String cardID, String purchaseType) {
 
         this.receiptID = receiptID;
         this.cardID = cardID;
@@ -42,14 +42,6 @@ public class Purchase {
         this.purchaseTime = setPurchaseTime();
         this.purchaseType = purchaseType;
 
-        /*for (String cat : DETAILS_ARR) {
-            if (purchaseDetails.equalsIgnoreCase(cat)) {
-                this.purchaseDetails = cat;
-                break;
-            } else {
-                System.out.println("Wrong category!");
-            }
-        }*/
     } // end of constructor
 
     /****** SETTERS ******/
@@ -75,8 +67,6 @@ public class Purchase {
                 "\nPurchase Amount: " + this.purchaseAmount + "\n";
     }
 
-    public double getAmount() {
-        return this.purchaseAmount;
-    }
+    public double getAmount() { return this.purchaseAmount; }
 
 }

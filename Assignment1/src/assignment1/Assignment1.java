@@ -8,6 +8,11 @@ import java.util.*;
  */
 
 // TODO Question: Do you make the card first or the card based on a purchase?
+// TODO Change cardID variable to String so you can make them null
+// TODO implement Card class as abstract
+// TODO Add a default to switch statements
+// TODO Change while loop to stop when there is no more inputs
+// TODO Add a method for creating a card that can be used both from makePurchase method and on its own
 
 public class Assignment1 {
 
@@ -48,7 +53,7 @@ public class Assignment1 {
                 case 5: showTotalPurchases();
                         break;
             }
-        }
+        } // end while loop
     } // end of main method
 
     /****** SETTERS ******/
@@ -58,43 +63,45 @@ public class Assignment1 {
 
         System.out.print("Enter Receipt ID:  ");
         int receiptID = input.nextInt();
-        System.out.print("Enter Purchase Amount:  ");
+        System.out.print("Enter Purchase Amount:  "); // TODO this purchase amount should go into categories
         double purchaseAmount = input.nextDouble();
 
         helper.purchaseMenu();
-        int purchaseCat = helper.userSelection();
+        int categoryChoice = helper.userSelection();
 
-        String purchaseDetails = "";
+        String purchaseCategories = null;
 
-        switch (purchaseCat) {
-            case 1: purchaseDetails = "Systems";
+        switch (categoryChoice) {
+            case 0: break;
+            case 1: purchaseCategories = "Systems";
                 break;
-            case 2: purchaseDetails = "Laptops";
+            case 2: purchaseCategories = "Laptops";
                 break;
-            case 3: purchaseDetails = "Peripherals";
+            case 3: purchaseCategories = "Peripherals";
                 break;
-            case 4: purchaseDetails = "Multimedia";
+            case 4: purchaseCategories = "Multimedia";
                 break;
-            case 5: purchaseDetails = "Accessories";
+            case 5: purchaseCategories = "Accessories";
                 break;
+            default: purchaseCategories = "Error";
         }
 
-        System.out.print("Enter Card ID [0 for Cash]:  ");
-        int cardID = input.nextInt();
+        System.out.print("Enter Card ID [or Cash]:  ");
+        String cardID = input.nextLine();
 
         String purchaseType;
-        if (cardID == 0) {
-            purchaseDetails = "Cash";
-            purchases.add(new Purchase(receiptID, purchaseDetails, purchaseAmount));
+        if (cardID.equalsIgnoreCase("Cash")) {
+            purchaseCategories = "Cash";
+            purchases.add(new Purchase(receiptID, purchaseCategories, purchaseAmount));
         } else {
 
             // loop through cards ArrayList to validate for existing cards
             // if the card does not exist, prompt user to make one
             for (Card card : cards) {
-                if (card.id == cardID) {
+                if (card.id.equalsIgnoreCase(cardID)) {
                     purchaseType = card.getCardType();
                     card.setPoints(purchaseAmount);
-                    purchases.add(new Purchase(receiptID, purchaseAmount, purchaseDetails,
+                    purchases.add(new Purchase(receiptID, purchaseAmount, purchaseCategories,
                                     card.id, purchaseType));
                 }
             }
@@ -103,8 +110,8 @@ public class Assignment1 {
 
     // Unfinished
     private static void addCard() {
-        cards.add(new BasicCard(12345, "Scarlett Johansson", "scarlett@marvel.com"));
-        cards.add(new BasicCard(12355, "Andrew Che", "andrew@codeninja55.me"));
+        cards.add(new BasicCard("12345", "Scarlett Johansson", "scarlett@marvel.com"));
+        cards.add(new BasicCard("12355", "Andrew Che", "andrew@codeninja55.me"));
 
     }
 

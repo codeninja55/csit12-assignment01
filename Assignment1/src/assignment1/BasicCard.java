@@ -20,7 +20,7 @@ public class BasicCard extends Card {
     // default constructor
     public BasicCard() {
         super.cardType = "BasicCard";
-        super.id = 0;
+        super.id = null;
         super.points = 0;
         this.name = "";
         this.email = "";
@@ -28,7 +28,7 @@ public class BasicCard extends Card {
     }
 
     // constructor with details
-    public BasicCard(int id, String name, String email) {
+    public BasicCard(String id, String name, String email) {
         super.cardType = "BasicCard";
         super.id = id;
         super.points = 0;
@@ -36,19 +36,10 @@ public class BasicCard extends Card {
         this.email = email;
         this.balance = 0;
 
-        // validate to make sure entered balance is not negative
-        // Consider when creating a card for the first time the balance would have to be zero
-        /*if (balance > 0) {
-            this.balance = balance;
-        }else {
-            this.balance = 0;
-        }*/
     }
 
     /****** SETTERS ******/
-    public void setPoints(double purchaseAmount) {
-        super.points = POINTS_RATE * purchaseAmount;
-    }
+    public void setPoints(double purchaseAmount) { super.points = POINTS_RATE * purchaseAmount; }
 
     /****** GETTERS ******/
     public String toString() {

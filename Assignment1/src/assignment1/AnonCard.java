@@ -13,12 +13,12 @@ public class AnonCard extends Card {
 
     // default constructor
     public AnonCard() {
-        super.id = 0;
+        super.id = null;
         super.points = 0;
         super.cardType = "AnonCard";
     }
 
-    public AnonCard(int id) {
+    public AnonCard(String id) {
         super.cardType = "AnonCard";
         super.id = id;
         super.points = 0;
@@ -33,7 +33,5 @@ public class AnonCard extends Card {
                 "\nPoints: " + super.points + "\n";
     }
 
-    public String getCardType() {
-        return super.cardType;
-    }
+    public String getCardType() { return super.cardType; }
 }
