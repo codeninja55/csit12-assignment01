@@ -20,32 +20,42 @@ public class PremiumCard extends Card {
     // default constructor
     public PremiumCard() {
         super.id = null;
-        super.points = 0;
         super.cardType = "PremiumCard";
+        super.points = 0;
         this.name = "";
         this.email = "";
         this.balance = 0;
     }
 
     // constructor with details
-    public PremiumCard(String id, String name, String email, double balance) {
+    public PremiumCard(String id, String name, String email, double totalAmount) {
 
         super.id = id;
+        super.cardType = "PremiumCard";
         super.points = 0;
         this.name = name;
         this.email = email;
-        this.balance = balance;
+        this.balance = totalAmount - SIGNUP_FEE;
     }
 
     /****** SETTERS ******/
+    public void setPoints(double totalAmount) {
+        if (totalAmount < 40 && this.balance < 1000) {
+            this.points = totalAmount * POINTS_RATE_LOW;
+        } else {
+            this.points = totalAmount * POINTS_RATE_HIGH;
+        }
+    }
+
+    public void setBalance(double totalAmount) { this.balance += totalAmount; }
 
     /****** GETTERS ******/
-    public String getDetails() {
-        return "\nID: " + super.id +
+    public String toString() {
+        return "\nCard ID: " + this.id +
                 "\nCard Type: " + this.cardType +
                 "\nName: " + this.name +
                 "\nEmail: " + this.email +
                 "\nBalance: " + this.balance +
-                "\nPoints: " + super.points + "\n";
+                "\nPoints: " + this.points + "\n";
     }
 }

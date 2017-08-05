@@ -18,7 +18,7 @@ public class AnonCard extends Card {
         super.cardType = "AnonCard";
     }
 
-    public AnonCard(String id, String purchaseAmount) {
+    public AnonCard(String id) {
         super.cardType = "AnonCard";
         super.id = id;
         super.points = 0; // TODO change
