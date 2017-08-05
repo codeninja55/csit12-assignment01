@@ -14,7 +14,6 @@ public class PremiumCard extends Card {
     private String name;
     private String email;
     private double balance;
-    private final String CARD_TYPE = "PremiumCard";
 
     /****** CONSTRUCTORS ******/
 
@@ -22,26 +21,20 @@ public class PremiumCard extends Card {
     public PremiumCard() {
         super.id = null;
         super.points = 0;
+        super.cardType = "PremiumCard";
         this.name = "";
         this.email = "";
         this.balance = 0;
     }
 
     // constructor with details
-    public PremiumCard(String id, double points, String name,
-                     String email, double balance) {
+    public PremiumCard(String id, String name, String email, double balance) {
 
         super.id = id;
-        super.points = points;
+        super.points = 0;
         this.name = name;
         this.email = email;
-
-        // validate to make sure entered balance is not negative
-        if (balance > 0) {
-            this.balance = balance;
-        }else {
-            this.balance = 0;
-        }
+        this.balance = balance;
     }
 
     /****** SETTERS ******/
@@ -49,12 +42,10 @@ public class PremiumCard extends Card {
     /****** GETTERS ******/
     public String getDetails() {
         return "\nID: " + super.id +
-                "\nCard Type: " + this.CARD_TYPE +
+                "\nCard Type: " + this.cardType +
                 "\nName: " + this.name +
                 "\nEmail: " + this.email +
                 "\nBalance: " + this.balance +
                 "\nPoints: " + super.points + "\n";
     }
-
-    public String getCardType() { return this.CARD_TYPE; }
 }

@@ -18,13 +18,14 @@ public class AnonCard extends Card {
         super.cardType = "AnonCard";
     }
 
-    public AnonCard(String id) {
+    public AnonCard(String id, String purchaseAmount) {
         super.cardType = "AnonCard";
         super.id = id;
-        super.points = 0;
+        super.points = 0; // TODO change
     }
 
     /****** SETTERS ******/
+    public void setPoints(double purchaseAmount) { super.points = POINTS_RATE * purchaseAmount; }
 
     /****** GETTERS ******/
     public String toString() {
@@ -32,6 +33,4 @@ public class AnonCard extends Card {
                 "\nCard ID: " + super.id +
                 "\nPoints: " + super.points + "\n";
     }
-
-    public String getCardType() { return super.cardType; }
 }

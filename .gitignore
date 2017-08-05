@@ -1,3 +1,5 @@
 /Assignment1/build/
 /Assignment1/dist/
 /.idea/
+
+*.class

@@ -1,6 +1,8 @@
 //package assignment1;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * @author Dinh Che
@@ -11,38 +13,46 @@ import java.util.Date;
 public class Purchase {
     private int receiptID;
     private String cardID;
-    private String purchaseDetails;
+    private String purchaseCategories;
     private double purchaseAmount;
-    //private final String[] DETAILS_ARR = {"Laptops","Systems","Peripherals","Multimedia","Accessories"};
-    private String purchaseType;
+    private String cardType;
 
     private Date purchaseTime;
 
+    private Map<String, Double> categories = new HashMap<String, Double>();
+
     /****** CONSTRUCTORS ******/
 
-    // constructor for cash purchases
-    public Purchase(int receiptID, String purchaseDetails,
-                    double purchaseAmount) {
-        this.receiptID = receiptID;
-        this.cardID = null;
-        this.purchaseType = "Cash";
-        this.purchaseDetails = purchaseDetails;
-        this.purchaseAmount = purchaseAmount;
+    // default constructor
+    public Purchase() {
 
-        this.purchaseTime = setPurchaseTime();
     }
 
-    public Purchase(int receiptID, double purchaseAmount, String purchaseDetails,
-                    String cardID, String purchaseType) {
+    // constructor for cash purchases
+    public Purchase(int receiptID) {
+
+        this.receiptID = receiptID;
+        this.cardID = null;
+        this.cardType = "Cash";
+
+        createCatMap();
+
+        this.purchaseTime = setPurchaseTime();
+
+    } // end of contructor for cash
+
+    // constructor for card purchases
+    public Purchase(int receiptID, String cardID, String cardType) {
 
         this.receiptID = receiptID;
         this.cardID = cardID;
-        this.purchaseAmount = purchaseAmount;
-        this.purchaseDetails = purchaseDetails;
-        this.purchaseTime = setPurchaseTime();
-        this.purchaseType = purchaseType;
+        this.cardType = cardType;
 
-    } // end of constructor
+        createCatMap();
+
+        this.purchaseTime = setPurchaseTime();
+
+    } // end of constructor for card
 
     /****** SETTERS ******/
 
@@ -56,17 +66,33 @@ public class Purchase {
         return now;
     }
 
+    private void createCatMap() {
+        this.categories.put("systems", 0D);
+        this.categories.put("laptops", 0D);
+        this.categories.put("peripherals", 0D);
+        this.categories.put("multimedia", 0D);
+        this.categories.put("accessories", 0D);
+    }
+
+
     /****** GETTERS ******/
 
     public String toString() {
         return "\nReceipt ID: " + this.receiptID +
                 "\nCard ID: " + this.cardID +
-                "\nCard Type: " + this.purchaseType +
+                "\nCard Type: " + this.cardType +
                 "\nPurchase Time: " + this.purchaseTime +
-                "\nPurchase Details: " + this.purchaseDetails +
+                "\nPurchase Details: " + this.purchaseCategories +
                 "\nPurchase Amount: " + this.purchaseAmount + "\n";
     }
 
     public double getAmount() { return this.purchaseAmount; }
 
+    public void displayMap() {
+        System.out.printf("%n%-12s %s","CATEGORY", "AMOUNT");
+        for (Map.Entry<String, Double> item : this.categories.entrySet()) {
+            System.out.printf("%n%-11s  $%.2f", item.getKey().toUpperCase(), item.getValue());
+        }
+        System.out.println();
+    }
 }

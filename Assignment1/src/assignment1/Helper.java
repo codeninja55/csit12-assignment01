@@ -12,7 +12,7 @@ public class Helper {
     private Scanner input = new Scanner(System.in);
 
     public int userSelection() {
-        System.out.print("\nEnter your option: ");
+        System.out.print("\nEnter your option:  ");
         return input.nextInt();
     }
 
@@ -21,13 +21,12 @@ public class Helper {
                 "[ 1 ] Show All Cards\n" +
                 "[ 2 ] Show All Purchases\n" +
                 "[ 3 ] Add Purchase\n" +
-                "[ 4 ] Add Card\n" +
-                "[ 5 ] Show Total Purchases\n" +
+                "[ 4 ] Show Total Purchases\n" +
                 "[ 0 ] Exit\n");
     }
 
     public void addCardMenu() {
-        System.out.printf("%nPlease choose from below:%n" +
+        System.out.printf("%nPlease a Card Type choose from below:%n" +
                 "[ 1 ] Anon Card%n" +
                 "[ 2 ] Basic Card%n" +
                 "[ 3 ] Premium Card%n" +
@@ -35,7 +34,7 @@ public class Helper {
     }
 
     public void purchaseMenu() {
-        System.out.printf("%nPlease Purchase Category from Below choose from below:%n" +
+        System.out.printf("%nPlease select Purchase Category from below:%n" +
                 "[ 1 ] Laptops%n" +
                 "[ 2 ] Systems%n" +
                 "[ 3 ] Peripherals%n" +

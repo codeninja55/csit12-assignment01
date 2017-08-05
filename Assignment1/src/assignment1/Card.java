@@ -12,13 +12,14 @@ public abstract class Card {
     protected String id;
     protected double points;
     protected String cardType;
+
     /****** CONSTRUCTORS ******/
 
     // default constructor
     public Card() {
         this.id = null;
         this.points = 0;
-        this.cardType = "";
+        this.cardType = "Card";
     }
 
     // constructor that initializes card properly
