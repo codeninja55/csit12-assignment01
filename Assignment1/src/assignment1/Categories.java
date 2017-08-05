@@ -6,6 +6,6 @@
  * Email: dbac496@uowmail.edu.au
  */
 
-public class Categories {
+public interface Categories {
 
 }

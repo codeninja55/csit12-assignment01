@@ -7,10 +7,8 @@ import java.util.*;
  * Email: dbac496@uowmail.edu.au
  */
 
-// TODO Question: Do you make the card first or the card based on a purchase?
 // TODO Add a method for creating a card that can be used both from makePurchase method and on its own
 // TODO Use BigDecimal for monetary calculations
-// TODO Change PurchaseAmount to the value of the category they're using
 
 public class Assignment1 {
 
@@ -18,16 +16,15 @@ public class Assignment1 {
     static private ArrayList<Purchase> purchases = new ArrayList<Purchase>();
     static private Scanner input = new Scanner(System.in);
     static private Helper helper = new Helper(); // helper class to print menu's to console
+    static private Map<String, Double> categories = new HashMap<>();
 
     public static void main(String[] args) {
 
-        /* BETA | Purchase Details List with HashMap/Dictionary */
-        //Map purchaseDetails = new HashMap();
-        //purchaseDetails.put("Laptops", 0);
-        //purchaseDetails.put("Systems", 0);
-        //purchaseDetails.put("Peripherals", 0);
-        //purchaseDetails.put("Multimedia", Double(0));
-        //purchaseDetails.put("Accessories", Double(0));
+        /****** TESTING CODE ******/
+
+        cards.add(new AnonCard("1234"));
+        cards.add(new BasicCard("12345", "Scarlett Johansson", "scarlett@marvel.com", 100.0));
+        cards.add(new PremiumCard("12355", "Andrew Che", "andrew@codeninja55.me",1000D));
 
         //addCard();
         System.out.printf("%n%nWelcome to Card Analytics%n%n");
@@ -46,7 +43,7 @@ public class Assignment1 {
                         break;
                 case 3: makePurchase();
                         break;
-                case 4: showTotalPurchases();
+                case 4: //showTotalPurchases();
                         break;
             }
         } // end while loop
@@ -55,86 +52,76 @@ public class Assignment1 {
     /****** SETTERS ******/
 
     private static void makePurchase() {
-        //purchases.add(new Purchase(11111, 1234, "Laptops"));
 
-        // get the receipt ID
         System.out.print("\nEnter Receipt ID:  ");
         int receiptID = input.nextInt();
         input.nextLine();
 
-        // TODO this purchase amount should go into categories
-
-        /*// get the purchase amount
-        System.out.print("Enter Purchase Amount:  ");
-        double purchaseAmount = input.nextDouble();*/
-
-        // give the user a menu to select categories from
-        /*helper.purchaseMenu();
-        int categoryChoice = helper.userSelection();
-        input.nextLine(); // consume the newline character from use of previous nextInt()
-
-        String purchaseCategories;
-
-        switch (categoryChoice) {
-            case 0: break;
-            case 1: purchaseCategories = "Systems";
-                    break;
-            case 2: purchaseCategories = "Laptops";
-                    break;
-            case 3: purchaseCategories = "Peripherals";
-                    break;
-            case 4: purchaseCategories = "Multimedia";
-                    break;
-            case 5: purchaseCategories = "Accessories";
-                    break;
-            default: purchaseCategories = "Error";
-        }*/
-
         System.out.print("Enter Card ID [or Cash]:  ");
         String cardID = input.nextLine();
 
-        String cardType = "BasicCard";
+        // TODO Put this into its own method
+        categories = new HashMap<>();
 
-        //purchases.add(new Purchase(receiptID, cardID, cardType));
+        categories.put("Systems", 0D);
+        categories.put("Laptops", 0D);
+        categories.put("Peripherals", 0D);
+        categories.put("Multimedia", 0D);
+        categories.put("Accessories", 0D);
 
-        Purchase testP = new Purchase(receiptID, cardID, cardType);
+        while (true) {
+            helper.categoriesMenu();
+            String selection = helper.categoriesSelection();
 
-        testP.displayMap();
+            if (selection.isEmpty()) {
+                break;
+            } else {
+                System.out.printf("Enter Total Amount for %s Category:  ", selection);
+                double categoryAmount = input.nextDouble();
+                categories.put(selection, categoryAmount);
+            }
+        }
 
+        //System.out.println(categories.entrySet()); // TESTING
 
-        /*if (cardID.equalsIgnoreCase("Cash")) {
-            purchases.add(new Purchase(receiptID, purchaseCategories, purchaseAmount));
-
+        if (cardID.equalsIgnoreCase("cash")) {
+            purchases.add(new Purchase(receiptID, categories));
         } else {
-            // loop through cards ArrayList to validate for existing cards
-            // if the card does not exist, prompt user to make one
+
+            int counter = 1; // check when for loops reaches end
+            /* Loop through cards ArrayList to validate for existing cards
+             * if the card does not exist, prompt user to make one. */
             for (Card card : cards) {
-                if (card.id.equalsIgnoreCase(cardID)) {
-                    cardType = card.getCardType();
-                    //card.setPoints(purchaseAmount);
+                if (cardID.equalsIgnoreCase(card.id)) {
+                    String cardType = card.cardType;
+                    Purchase newPurchase = new Purchase(receiptID, cardID, cardType, categories);
+                    card.setPoints(newPurchase.getCategoriesTotal());
 
-                    // TODO Add purchase amount to Basic or Premium card balance
+                    if (!cardType.equalsIgnoreCase("AnonCard")) {
+                        card.setBalance(newPurchase.getCategoriesTotal());
+                    }
 
-                    purchases.add(new Purchase(receiptID, purchaseCategories,
-                                    card.id, cardType));
-                } else {
+                    purchases.add(newPurchase);
+                    counter++;
+                } else if (cards.size() < counter){
                     System.out.print("\nPlease create a new card for this purchase\n");
 
                     //addCard();
+                } else {
+                    counter++;
                 }
             }
-        }*/
+        }
+
     } // end of makePurchase method
 
-    // Unfinished
-    /*private static void addCard(String cardID, double purchaseAmount) {
-        cards.add(new BasicCard("12345", "Scarlett Johansson", "scarlett@marvel.com"));
-        cards.add(new BasicCard("12355", "Andrew Che", "andrew@codeninja55.me"));
+    // TODO Unfinished
+    private static void addCard(String cardID, double purchaseAmount) {
 
         helper.addCardMenu();
         int cardChoice = helper.userSelection();
 
-        *//*switch (cardChoice) {
+        /*switch (cardChoice) {
             case 0: break;
             case 1: // Anon Card
                 System.out.println("Creating an Anon Card");
@@ -170,7 +157,7 @@ public class Assignment1 {
                 cards.add(new PremiumCard());
 
                 break;
-        }*//*
+        }*/
 
     } // end of addCard method*/
 
@@ -188,14 +175,7 @@ public class Assignment1 {
             }
     }
 
-    public static void showTotalPurchases() {
-        double total = 0;
-        for (Purchase purchase : purchases) {
-            total += purchase.getAmount();
-        }
-
-        System.out.printf("%nTotal Purchases:  %.2f%n", total);
-    }
+    //public static void showTotalPurchases() { }
 
     // Need a getter to output categories
 

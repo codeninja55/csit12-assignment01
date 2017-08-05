@@ -13,13 +13,11 @@ import java.util.Map;
 public class Purchase {
     private int receiptID;
     private String cardID;
-    private String purchaseCategories;
-    private double purchaseAmount;
     private String cardType;
 
     private Date purchaseTime;
 
-    private Map<String, Double> categories = new HashMap<String, Double>();
+    private Map<String, Double> categories;
 
     /****** CONSTRUCTORS ******/
 
@@ -29,26 +27,25 @@ public class Purchase {
     }
 
     // constructor for cash purchases
-    public Purchase(int receiptID) {
+    public Purchase(int receiptID, Map<String, Double> categories) {
 
         this.receiptID = receiptID;
         this.cardID = null;
         this.cardType = "Cash";
-
-        createCatMap();
+        this.categories = categories;
 
         this.purchaseTime = setPurchaseTime();
 
-    } // end of contructor for cash
+    } // end of constructor for cash
 
     // constructor for card purchases
-    public Purchase(int receiptID, String cardID, String cardType) {
+    public Purchase(int receiptID, String cardID, String cardType,
+                    Map<String, Double> categories) {
 
         this.receiptID = receiptID;
         this.cardID = cardID;
         this.cardType = cardType;
-
-        createCatMap();
+        this.categories = categories;
 
         this.purchaseTime = setPurchaseTime();
 
@@ -66,33 +63,61 @@ public class Purchase {
         return now;
     }
 
-    private void createCatMap() {
-        this.categories.put("systems", 0D);
-        this.categories.put("laptops", 0D);
-        this.categories.put("peripherals", 0D);
-        this.categories.put("multimedia", 0D);
-        this.categories.put("accessories", 0D);
-    }
+    // private Date updatePurchaseTime() { } // if you really want
 
+    /*private void createCatMap() {
+        this.categories.put("Systems", 0D);
+        this.categories.put("Laptops", 0D);
+        this.categories.put("Peripherals", 0D);
+        this.categories.put("Multimedia", 0D);
+        this.categories.put("Accessories", 0D);
+    }*/
+
+    // private void updateCategory(String key, double value) { }
 
     /****** GETTERS ******/
 
     public String toString() {
-        return "\nReceipt ID: " + this.receiptID +
-                "\nCard ID: " + this.cardID +
-                "\nCard Type: " + this.cardType +
-                "\nPurchase Time: " + this.purchaseTime +
-                "\nPurchase Details: " + this.purchaseCategories +
-                "\nPurchase Amount: " + this.purchaseAmount + "\n";
+
+        String output;
+        String firstOutput;
+        String secondOutput = "";
+
+        firstOutput = String.format(
+                "%n%-20s %s" +
+                "%n%-20s %s" +
+                "%n%-20s %s" +
+                "%n%-20s %-20tc",
+                "Receipt ID", this.receiptID,
+                "Card ID:",this.cardID,
+                "Card Type:",this.cardType,
+                "Purchase Time:",this.purchaseTime);
+
+        for (Map.Entry<String, Double> item : this.categories.entrySet()) {
+            secondOutput += String.format("%n%-20s $%.2f", (item.getKey() + ":"),
+                    item.getValue());
+        }
+
+        output = firstOutput + secondOutput;
+
+        return output;
     }
 
-    public double getAmount() { return this.purchaseAmount; }
+    public double getCategoriesTotal() {
+        double total = 0;
 
-    public void displayMap() {
+        for (Map.Entry<String, Double> item : this.categories.entrySet()) {
+            total += item.getValue();
+        }
+
+        return total;
+    }
+
+    /*public void displayMap() {
         System.out.printf("%n%-12s %s","CATEGORY", "AMOUNT");
         for (Map.Entry<String, Double> item : this.categories.entrySet()) {
-            System.out.printf("%n%-11s  $%.2f", item.getKey().toUpperCase(), item.getValue());
+            System.out.printf("%n%-11s  $%.2f", item.getKey(), item.getValue());
         }
         System.out.println();
-    }
+    }*/
 }
