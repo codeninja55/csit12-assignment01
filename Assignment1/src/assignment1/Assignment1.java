@@ -23,10 +23,13 @@ public class Assignment1 {
         /****** TESTING CODE ******/
 
         cards.add(new AnonCard("1234"));
-        cards.add(new BasicCard("12345", "Scarlett Johansson", "scarlett@marvel.com", 100.0));
-        cards.add(new PremiumCard("12355", "Andrew Che", "andrew@codeninja55.me",1000D));
+        cards.add(new BasicCard("12345", "Scarlett Johansson",
+                "scarlett@marvel.com", 100.0));
+        cards.add(new PremiumCard("12355", "Andrew Che",
+                "andrew@codeninja55.me",1000D));
 
-        //addCard();
+        //createCard();
+
         System.out.printf("%n%nWelcome to Card Analytics%n%n");
 
         while (true) {
@@ -60,38 +63,28 @@ public class Assignment1 {
         System.out.print("Enter Card ID [or Cash]:  ");
         String cardID = input.nextLine();
 
-        // TODO Put this into its own method
-        categories = new HashMap<>();
+        Map<String, Double> categories = createCategories();
 
-        categories.put("Systems", 0D);
-        categories.put("Laptops", 0D);
-        categories.put("Peripherals", 0D);
-        categories.put("Multimedia", 0D);
-        categories.put("Accessories", 0D);
+        /*
+        * NOTE: Regarding ConcurrentModificationError when iterating over ArrayList
+        * There are 2 options available:
+        * 1. Create a copy of cards ArrayList using ArrayList(Collection<? extends E> c)
+        *    to avoid Modifying the original cards list
+                * 2. Iterating over original ArrayList to find index of existing cards and making
+        *    modifications to any existing card objects  using its index in the ArrayList
+        * */
 
-        while (true) {
-            helper.categoriesMenu();
-            String selection = helper.categoriesSelection();
-
-            if (selection.isEmpty()) {
-                break;
-            } else {
-                System.out.printf("Enter Total Amount for %s Category:  ", selection);
-                double categoryAmount = input.nextDouble();
-                categories.put(selection, categoryAmount);
-            }
-        }
-
-        //System.out.println(categories.entrySet()); // TESTING
+        ArrayList<Card> cardsCopy = new ArrayList<>(cards);
 
         if (cardID.equalsIgnoreCase("cash")) {
+            /* If it just a cash purchase, not updates required to card */
             purchases.add(new Purchase(receiptID, categories));
         } else {
-
             int counter = 1; // check when for loops reaches end
+
             /* Loop through cards ArrayList to validate for existing cards
              * if the card does not exist, prompt user to make one. */
-            for (Card card : cards) {
+            for (Card card : cardsCopy) {
                 if (cardID.equalsIgnoreCase(card.id)) {
                     String cardType = card.cardType;
                     Purchase newPurchase = new Purchase(receiptID, cardID, cardType, categories);
@@ -103,63 +96,90 @@ public class Assignment1 {
 
                     purchases.add(newPurchase);
                     counter++;
-                } else if (cards.size() < counter){
+                } else if (cardsCopy.size() != counter){
+                    counter++;
+
+                } else {
+
                     System.out.print("\nPlease create a new card for this purchase\n");
 
-                    //addCard();
-                } else {
-                    counter++;
+                    createCard(receiptID, cardID, categories);
                 }
             }
         }
 
     } // end of makePurchase method
 
-    // TODO Unfinished
-    private static void addCard(String cardID, double purchaseAmount) {
+    private static Map<String, Double> createCategories() {
+        categories = new HashMap<>();
 
-        helper.addCardMenu();
-        int cardChoice = helper.userSelection();
+        categories.put("Systems", 0D);
+        categories.put("Laptops", 0D);
+        categories.put("Peripherals", 0D);
+        categories.put("Multimedia", 0D);
+        categories.put("Accessories", 0D);
 
-        /*switch (cardChoice) {
-            case 0: break;
-            case 1: // Anon Card
-                System.out.println("Creating an Anon Card");
+        while (true) {
+            String selection = helper.categoriesSelection();
 
-                cards.add(new AnonCard(cardID));
-
+            if (selection.isEmpty()) {
                 break;
+            } else {
+                System.out.printf("Enter Total Amount for %s Category:  ", selection);
+                double categoryAmount = input.nextDouble();
+                categories.put(selection, categoryAmount);
+            }
+        }
 
-            case 2: // Basic Card
-                System.out.println("Creating a Basic Card");
+        return categories;
+    }
 
-                System.out.print("\nEnter Customer Name:  ");
-                String name = input.nextLine();
+    private static void createCard(int ReceiptID, String cardID, Map<String, Double> categories) {
+        String name, email;
+        Card newCard;
 
-                System.out.print("\nEnter Customer Email:  ");
-                String email = input.nextLine();
+        String cardChoice = helper.cardSelection();
 
-                cards.add(new BasicCard(cardID, name, email, purchaseAmount));
+        Purchase newPurchase = new Purchase(ReceiptID, cardID, cardChoice, categories);
+        double totalAmount = newPurchase.getCategoriesTotal();
 
-                break;
+        if (cardChoice.equalsIgnoreCase("AnnonCard")) {
+            System.out.println("\nCreating an Anon Card");
 
-            case 3: // Premium Card
+            newCard = new AnonCard(cardID);
+
+            newCard.setPoints(totalAmount);
+
+        } else {
+
+            if (cardChoice.equalsIgnoreCase("BasicCard")) {
+                System.out.println("\nCreating a Basic Card");
+            } else {
                 System.out.println("Creating a Premium Card");
                 System.out.println("Please note there is a $25.0 fee to sign up.");
                 System.out.println("This will be added to your purchase.");
+            }
 
-                System.out.print("\nEnter Customer Name:  ");
-                String name = input.nextLine();
+            System.out.print("\nEnter Customer Name:  ");
+            name = input.nextLine();
 
-                System.out.print("\nEnter Customer Email:  ");
-                String email = input.nextLine();
+            System.out.print("\nEnter Customer Email:  ");
+            email = input.nextLine();
 
-                cards.add(new PremiumCard());
+            if (cardChoice.equalsIgnoreCase("BasicCard")) {
+                newCard = new BasicCard(cardID, name, email, totalAmount);
+            } else {
+                newCard = new PremiumCard(cardID, name, email, totalAmount);
+            }
 
-                break;
-        }*/
+            newCard.setPoints(totalAmount);
 
-    } // end of addCard method*/
+        }
+
+        cards.add(newCard);
+        purchases.add(newPurchase);
+
+    } // end of createCard method*/
 
     /****** GETTERS ******/
 
@@ -175,7 +195,14 @@ public class Assignment1 {
             }
     }
 
-    //public static void showTotalPurchases() { }
+    //public static void showTotalPurchases() { } // TODO
+
+    /* TODO
+    * prints (i) the total points earned by all customers and
+    * (ii) prints the number of customers with low (<500), medium (>= 500 and < 2000)
+    * and large (>= 2000) points.*/
+
+    //public static void printPoints() { }
 
     // Need a getter to output categories
 
