@@ -25,26 +25,27 @@ public class Helper {
                 "[ 0 ] Exit\n");
     }
 
-    public void addCardMenu() {
-        System.out.printf("%nPlease a Card Type choose from below:%n" +
+    public void createCardMenu() {
+        System.out.printf("%nPlease select a Card Type choice from below:%n" +
                 "[ 1 ] Anon Card%n" +
                 "[ 2 ] Basic Card%n" +
                 "[ 3 ] Premium Card%n" +
                 "[ 0 ] Exit%n");
     }
 
-    public String categoriesSelection() {
+    public String cardSelection() {
+        createCardMenu();
+
         int selection = this.userSelection();
 
-        switch(selection) {
+        switch (selection) {
             case 0: return "";
-            case 1: return "Systems";
-            case 2: return "Laptops";
-            case 3: return "Peripherals";
-            case 4: return "Multimedia";
-            case 5: return "Accessories";
+            case 1: return "AnonCard";
+            case 2: return "BasicCard";
+            case 3: return "PremiumCard";
             default: return "";
         } // TODO add thrown exception
+
     }
 
     public void categoriesMenu() {
@@ -59,5 +60,21 @@ public class Helper {
                 "[ 4 ] Multimedia%n" +
                 "[ 5 ] Accessories%n" +
                 "[ 0 ] Finished%n");
+    }
+
+    public String categoriesSelection() {
+        categoriesMenu();
+
+        int selection = this.userSelection();
+
+        switch(selection) {
+            case 0: return "";
+            case 1: return "Systems";
+            case 2: return "Laptops";
+            case 3: return "Peripherals";
+            case 4: return "Multimedia";
+            case 5: return "Accessories";
+            default: return "";
+        } // TODO add thrown exception
     }
 }
