@@ -17,12 +17,16 @@ public class Helper {
     }
 
     public void printMenu() {
+        System.out.println("\n******************************");
+        System.out.println("********* Main Menu **********");
+        System.out.println("******************************");
         System.out.printf("\nPlease choose from below:\n" +
                 "[ 1 ] Show All Cards\n" +
                 "[ 2 ] Show All Purchases\n" +
                 "[ 3 ] Add Purchase\n" +
                 "[ 4 ] Show Total Purchases\n" +
                 "[ 0 ] Exit\n");
+        System.out.println("\n******************************");
     }
 
     public void createCardMenu() {

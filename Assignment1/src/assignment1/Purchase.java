@@ -99,7 +99,7 @@ public class Purchase {
         return output;
     }
 
-    public double getCategoriesTotal() {
+    public double calcCategoriesTotal() {
         double total = 0;
 
         for (Map.Entry<String, Double> item : this.categories.entrySet()) {
@@ -108,6 +108,8 @@ public class Purchase {
 
         return total;
     }
+
+    public Map<String, Double> getCatMap() { return this.categories; }
 
     /*public void displayMap() {
         System.out.printf("%n%-12s %s","CATEGORY", "AMOUNT");

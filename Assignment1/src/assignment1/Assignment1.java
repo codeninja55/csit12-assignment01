@@ -7,7 +7,6 @@ import java.util.*;
  * Email: dbac496@uowmail.edu.au
  */
 
-// TODO Add a method for creating a card that can be used both from makePurchase method and on its own
 // TODO Use BigDecimal for monetary calculations
 
 public class Assignment1 {
@@ -20,17 +19,9 @@ public class Assignment1 {
 
     public static void main(String[] args) {
 
-        /****** TESTING CODE ******/
+        createTestCode();
 
-        cards.add(new AnonCard("1234"));
-        cards.add(new BasicCard("12345", "Scarlett Johansson",
-                "scarlett@marvel.com", 100.0));
-        cards.add(new PremiumCard("12355", "Andrew Che",
-                "andrew@codeninja55.me",1000D));
-
-        //createCard();
-
-        System.out.printf("%n%nWelcome to Card Analytics%n%n");
+        System.out.println("\n\nWELCOME TO CARD ANALYTICS\n\n");
 
         while (true) {
             helper.printMenu();
@@ -46,7 +37,7 @@ public class Assignment1 {
                         break;
                 case 3: makePurchase();
                         break;
-                case 4: //showTotalPurchases();
+                case 4: showTotalPurchases();
                         break;
             }
         } // end while loop
@@ -88,10 +79,10 @@ public class Assignment1 {
                 if (cardID.equalsIgnoreCase(card.id)) {
                     String cardType = card.cardType;
                     Purchase newPurchase = new Purchase(receiptID, cardID, cardType, categories);
-                    card.setPoints(newPurchase.getCategoriesTotal());
+                    card.setPoints(newPurchase.calcCategoriesTotal());
 
                     if (!cardType.equalsIgnoreCase("AnonCard")) {
-                        card.setBalance(newPurchase.getCategoriesTotal());
+                        card.setBalance(newPurchase.calcCategoriesTotal());
                     }
 
                     purchases.add(newPurchase);
@@ -139,9 +130,10 @@ public class Assignment1 {
         Card newCard;
 
         String cardChoice = helper.cardSelection();
+        input.nextLine(); // consume newline character leftover from nextInt()
 
         Purchase newPurchase = new Purchase(ReceiptID, cardID, cardChoice, categories);
-        double totalAmount = newPurchase.getCategoriesTotal();
+        double totalAmount = newPurchase.calcCategoriesTotal();
 
         if (cardChoice.equalsIgnoreCase("AnnonCard")) {
             System.out.println("\nCreating an Anon Card");
@@ -155,7 +147,7 @@ public class Assignment1 {
             if (cardChoice.equalsIgnoreCase("BasicCard")) {
                 System.out.println("\nCreating a Basic Card");
             } else {
-                System.out.println("Creating a Premium Card");
+                System.out.println("\nCreating a Premium Card");
                 System.out.println("Please note there is a $25.0 fee to sign up.");
                 System.out.println("This will be added to your purchase.");
             }
@@ -181,6 +173,73 @@ public class Assignment1 {
 
     } // end of createCard method*/
 
+    private static void createTestCode() {
+        /****** TESTING CODE ******/
+
+        // Cash purchase test
+        Map<String, Double> cat1 = new HashMap<>();
+        cat1.put("Systems", 800D);
+        cat1.put("Laptops", 0D);
+        cat1.put("Peripherals", 100D);
+        cat1.put("Multimedia", 0D);
+        cat1.put("Accessories", 0D);
+        purchases.add(new Purchase(1,cat1));
+
+        // AnonCard Test
+        cards.add(new AnonCard("111"));
+
+        //Map<String, Double> cat2 = new HashMap<>();
+        cat1.replace("Systems", 0D);
+        cat1.replace("Laptops", 0D);
+        cat1.replace("Peripherals", 80D);
+        cat1.replace("Multimedia", 0D);
+        cat1.replace("Accessories", 100D);
+
+        Purchase anonTest = new Purchase(100,"111","AnonCard",cat1);
+        cards.get(0).setPoints(anonTest.calcCategoriesTotal());
+        purchases.add(anonTest);
+
+        // BasicCard Test
+        cards.add(new BasicCard("69", "Scarlett Johansson",
+                "scarlett@marvel.com", 0));
+
+        Map<String, Double> cat3 = new HashMap<>();
+        cat3.put("Systems", 3000D);
+        cat3.put("Laptops", 5000D);
+        cat3.put("Peripherals", 500D);
+        cat3.put("Multimedia", 0D);
+        cat3.put("Accessories", 1000D);
+
+        Purchase basicTest = new Purchase(1000, "69", "BasicCard",cat3);
+        cards.get(1).setPoints(basicTest.calcCategoriesTotal());
+        cards.get(1).setBalance(basicTest.calcCategoriesTotal());
+        purchases.add(basicTest);
+
+        // PremiumCard Test
+        cards.add(new PremiumCard("55", "Andrew Che",
+                "andrew@codeninja55.me",0));
+
+        Map<String, Double> cat4 = new HashMap<>();
+        cat4.put("Systems", 100000D);
+        cat4.put("Laptops", 4500D);
+        cat4.put("Peripherals", 300D);
+        cat4.put("Multimedia", 10000D);
+        cat4.put("Accessories", 500D);
+
+        Purchase premiumTest = new Purchase(2000,"55","PremiumCard",cat4);
+        cards.get(2).setPoints(premiumTest.calcCategoriesTotal());
+        cards.get(2).setBalance(premiumTest.calcCategoriesTotal());
+        purchases.add(premiumTest);
+
+        cards.add(new PremiumCard("75", "Tony Stark",
+                "ironman@avengers.team",1000000D));
+        cards.get(3).setPoints(9000D);
+
+        cards.add(new BasicCard("1", "Steve Rogers",
+                "captain_a@avengers.team",500D));
+        cards.get(4).setPoints(100000D);
+
+    }
     /****** GETTERS ******/
 
     public static void showCards() {
@@ -195,7 +254,15 @@ public class Assignment1 {
             }
     }
 
-    //public static void showTotalPurchases() { } // TODO
+    public static void showTotalPurchases() {
+        System.out.printf("%n%n%-20s %s","Category","Total");
+
+        Map<String, Double> categoryTotal = new HashMap<>();
+
+        for (Purchase purchase : purchases) {
+
+        }
+    }
 
     /* TODO
     * prints (i) the total points earned by all customers and

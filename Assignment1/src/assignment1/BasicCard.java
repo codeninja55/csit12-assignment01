@@ -49,7 +49,7 @@ public class BasicCard extends Card {
                 "\nName: " + this.name +
                 "\nEmail: " + this.email +
                 "\nBalance: " + this.balance +
-                "\nPoints: " + super.points + "\n";
+                "\nPoints: " + super.points;
     }
 
 }

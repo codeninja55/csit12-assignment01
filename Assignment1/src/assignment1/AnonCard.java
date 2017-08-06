@@ -31,6 +31,6 @@ public class AnonCard extends Card {
     public String toString() {
         return "\nCard Type: " + super.cardType +
                 "\nCard ID: " + super.id +
-                "\nPoints: " + super.points + "\n";
+                "\nPoints: " + super.points;
     }
 }

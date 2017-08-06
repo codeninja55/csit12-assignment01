@@ -56,6 +56,6 @@ public class PremiumCard extends Card {
                 "\nName: " + this.name +
                 "\nEmail: " + this.email +
                 "\nBalance: " + this.balance +
-                "\nPoints: " + this.points + "\n";
+                "\nPoints: " + this.points;
     }
 }
