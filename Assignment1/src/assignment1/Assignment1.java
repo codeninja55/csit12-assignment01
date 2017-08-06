@@ -135,8 +135,7 @@ public class Assignment1 {
         double totalAmount = newPurchase.calcCategoriesTotal();
 
         if (cardChoice.isEmpty()) {
-            System.out.println("Exiting from creating card...");
-            break;
+            System.out.println("\nExiting from creating card...");
         } else if (cardChoice.equalsIgnoreCase("AnonCard")) {
             System.out.println("\nCreating an Anon Card");
 
