@@ -27,7 +27,6 @@ public class Assignment1 {
             helper.printMenu();
 
             int menuChoice = helper.userSelection();
-            // TODO need to fix InputMismatchException
 
             switch (menuChoice) {
                 case 0: System.exit(0);
@@ -38,6 +37,8 @@ public class Assignment1 {
                 case 3: makePurchase();
                         break;
                 case 4: showTotalPurchases();
+                        break;
+                case 5: printPoints();
                         break;
             }
         } // end while loop
@@ -61,14 +62,14 @@ public class Assignment1 {
         * There are 2 options available:
         * 1. Create a copy of cards ArrayList using ArrayList(Collection<? extends E> c)
         *    to avoid Modifying the original cards list
-                * 2. Iterating over original ArrayList to find index of existing cards and making
+        * 2. Iterating over original ArrayList to find index of existing cards and making
         *    modifications to any existing card objects  using its index in the ArrayList
         * */
 
         ArrayList<Card> cardsCopy = new ArrayList<>(cards);
 
         if (cardID.equalsIgnoreCase("cash")) {
-            /* If it just a cash purchase, not updates required to card */
+            /* If it just a cash purchase, no updates required to card */
             purchases.add(new Purchase(receiptID, categories));
         } else {
             int counter = 1; // check when for loops reaches end
@@ -76,20 +77,21 @@ public class Assignment1 {
             /* Loop through cards ArrayList to validate for existing cards
              * if the card does not exist, prompt user to make one. */
             for (Card card : cardsCopy) {
-                if (cardID.equalsIgnoreCase(card.id)) {
+                
+                if (card.id.equals(cardID)) {
                     String cardType = card.cardType;
                     Purchase newPurchase = new Purchase(receiptID, cardID, cardType, categories);
                     card.setPoints(newPurchase.calcCategoriesTotal());
 
-                    if (!cardType.equalsIgnoreCase("AnonCard")) {
+                    if (!cardType.equalsIgnoreCase("AnonCard"))
                         card.setBalance(newPurchase.calcCategoriesTotal());
-                    }
 
                     purchases.add(newPurchase);
                     counter++;
-                } else if (cardsCopy.size() != counter){
+                    System.out.println("If Bloack: " + counter);
+                } else if (cardsCopy.size() <= counter){
                     counter++;
-
+                    System.out.println("Else if block");
                 } else {
 
                     System.out.print("\nPlease create a new card for this purchase\n");
@@ -135,7 +137,7 @@ public class Assignment1 {
         Purchase newPurchase = new Purchase(ReceiptID, cardID, cardChoice, categories);
         double totalAmount = newPurchase.calcCategoriesTotal();
 
-        if (cardChoice.equalsIgnoreCase("AnnonCard")) {
+        if (cardChoice.equalsIgnoreCase("AnonCard")) {
             System.out.println("\nCreating an Anon Card");
 
             newCard = new AnonCard(cardID);
@@ -147,6 +149,9 @@ public class Assignment1 {
             if (cardChoice.equalsIgnoreCase("BasicCard")) {
                 System.out.println("\nCreating a Basic Card");
             } else {
+
+                // TODO fix, if the cardChoice var is empty, it will always come here
+
                 System.out.println("\nCreating a Premium Card");
                 System.out.println("Please note there is a $25.0 fee to sign up.");
                 System.out.println("This will be added to your purchase.");
@@ -244,9 +249,12 @@ public class Assignment1 {
     /****** GETTERS ******/
 
     public static void showCards() {
+        System.out.printf("%n%n%-12s %-10s %-10s %-15s %-20s %-20s%n",
+                "Card Type","Card ID","Points","Balance", "Name", "Email");
         for (Card card : cards) {
             System.out.println(card.toString());
         }
+        System.out.println();
     }
 
     public static void showPurchases() {
@@ -290,13 +298,32 @@ public class Assignment1 {
         System.out.println("\n\n");
     }
 
-    /* TODO
-    * prints (i) the total points earned by all customers and
-    * (ii) prints the number of customers with low (<500), medium (>= 500 and < 2000)
-    * and large (>= 2000) points.*/
+    public static void printPoints() {
 
-    //public static void printPoints() { }
+        // Total points by all customers
+        double totalPoints = 0;
 
-    // Need a getter to output categories
+        // Points groupings by customer
+        int low = 0;
+        int medium = 0;
+        int high = 0;
 
+        for (Card card : cards) {
+            totalPoints += card.getPoints();
+
+            if (card.points < 500D) {
+                low++;
+            } else if (card.points > 500D && card.points < 2000D) {
+                medium++;
+            } else {
+                high++;
+            }
+        }
+
+        System.out.printf("%n%nTotal Points for All Customers: %.2f%n%n", totalPoints);
+
+        System.out.println("Customers by Groupings");
+        System.out.printf("Low (less than 500): %d%nMedium (500 to 2000): %d%n" +
+                        "High (more than 2000): %d%n%n", low, medium, high);
+    }
 } // end of Assignment1 class

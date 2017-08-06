@@ -29,8 +29,9 @@ public class AnonCard extends Card {
 
     /****** GETTERS ******/
     public String toString() {
-        return "\nCard Type: " + super.cardType +
-                "\nCard ID: " + super.id +
-                "\nPoints: " + super.points;
+        String output = String.format("%-12s %-10s %-10.2f",
+                this.cardType, this.id, this.points);
+
+        return output;
     }
 }

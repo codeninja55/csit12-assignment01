@@ -1,5 +1,5 @@
 //package assignment1;
-import java.util.Scanner;
+import java.util.*;
 
 /*
  * @author Dinh Che
@@ -12,8 +12,24 @@ public class Helper {
     private Scanner input = new Scanner(System.in);
 
     public int userSelection() {
-        System.out.print("\nEnter your option:  ");
-        return input.nextInt();
+        try {
+            System.out.print("\nEnter your option:  ");
+            int userChoice = input.nextInt();
+
+            if (userChoice > 5) {
+                System.out.println("\nYou did not enter valid range from the menu.");
+                System.out.println("Please select again with an integer shown in the menu...");
+                input.nextLine();
+                return this.userSelection(); // recursively run again until input correct
+            } else {
+                return userChoice;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("\nYou did not enter an integer from the menu.");
+            System.out.println("Please select again with an integer (i.e. 1)...");
+            input.nextLine(); // discard previous input
+            return this.userSelection();
+        }
     }
 
     public void printMenu() {
@@ -25,6 +41,7 @@ public class Helper {
                 "[ 2 ] Show All Purchases\n" +
                 "[ 3 ] Add Purchase\n" +
                 "[ 4 ] Show Total Purchases\n" +
+                "[ 5 ] Show Customer Points\n" +
                 "[ 0 ] Exit\n");
         System.out.println("\n******************************");
     }
@@ -48,7 +65,7 @@ public class Helper {
             case 2: return "BasicCard";
             case 3: return "PremiumCard";
             default: return "";
-        } // TODO add thrown exception
+        }
 
     }
 
@@ -79,6 +96,6 @@ public class Helper {
             case 4: return "Multimedia";
             case 5: return "Accessories";
             default: return "";
-        } // TODO add thrown exception
+        }
     }
 }

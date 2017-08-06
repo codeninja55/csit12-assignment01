@@ -44,12 +44,10 @@ public class BasicCard extends Card {
 
     /****** GETTERS ******/
     public String toString() {
-        return "\nCard ID: " + super.id +
-                "\nCard Type: " + super.cardType +
-                "\nName: " + this.name +
-                "\nEmail: " + this.email +
-                "\nBalance: " + this.balance +
-                "\nPoints: " + super.points;
-    }
 
+        String output = String.format("%-12s %-10s %-10.2f %s%-14.2f %-20s %-20s",
+                this.cardType,this.id,this.points,"$",this.balance,this.name,this.email);
+
+        return output;
+    }
 }

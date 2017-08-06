@@ -31,4 +31,5 @@ public abstract class Card {
 
     /****** GETTERS ******/
     public String getCardType() { return this.cardType; }
+    public double getPoints() { return this.points; }
 }
