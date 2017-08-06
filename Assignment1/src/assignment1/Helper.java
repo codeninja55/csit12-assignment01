@@ -113,35 +113,4 @@ public class Helper {
             return createCategories();
         }
     }
-
-    // TODO Needs to be modified
-    static void categoriesMenu(ArrayList<String> categoriesList) {
-
-        /* TODO Use a dynamic array to create this menu with a loop
-           TODO Use an array method to pop off menu items */
-
-        System.out.printf("%nPlease select Purchase Category from below to add amount:%n" +
-                "[ 1 ] Systems%n" +
-                "[ 2 ] Laptops%n" +
-                "[ 3 ] Peripherals%n" +
-                "[ 4 ] Multimedia%n" +
-                "[ 5 ] Accessories%n" +
-                "[ 0 ] Finished%n");
-    }
-
-    static String categoriesSelection() {
-        //categoriesMenu();
-
-        int selection = userSelection();
-
-        switch(selection) {
-            case 0: return "";
-            case 1: return "Systems";
-            case 2: return "Laptops";
-            case 3: return "Peripherals";
-            case 4: return "Multimedia";
-            case 5: return "Accessories";
-            default: return "";
-        }
-    }
 }

@@ -14,7 +14,7 @@ public class Shop {
     private ArrayList<Card> cards;
     private ArrayList<Purchase> purchases;
     private ArrayList<String> categoriesList; // store a String list of category keys
-    Map<String, Double> categories;
+    private Map<String, Double> categories;
     private Scanner input = new Scanner(System.in);
     //private Helper Helper = new Helper(); // Helper class to print menu's to console
 
@@ -54,18 +54,7 @@ public class Shop {
 
         // TODO Fix this
         //Map<String, Double> categories = setCategories();
-
-        while (true) {
-            String selection = Helper.categoriesSelection();
-
-            if (selection.isEmpty()) {
-                break;
-            } else {
-                System.out.printf("Enter Total Amount for %s Category:  ", selection);
-                double categoryAmount = input.nextDouble();
-                categories.put(selection, categoryAmount);
-            }
-        }
+        setCategories();
 
         /*
         * NOTE: Regarding ConcurrentModificationError when
@@ -114,11 +103,59 @@ public class Shop {
         }
     } // end of makePurchase method
 
+    /*private Map<Integer, String> createCategoriesMenu() {
 
-    /*private Map<String, Double> setCategories() {
 
-        return categories;
-    }*/ // end of createCategories method
+
+        return categoriesMenu;
+    }*/
+
+
+    private void setCategories() {
+
+        Map<Integer, String> categoriesMenu = new HashMap<>();
+        int counter = 1;
+
+        for (Map.Entry<String, Double> item : categories.entrySet()) {
+            categoriesMenu.put(counter,item.getKey());
+            counter++;
+        }
+
+        System.out.printf("%nPlease select Purchase Category from below to add amount:%n");
+        System.out.printf("[ 0 ] %s%n", "Finished");
+
+        for (Map.Entry<Integer, String> item : categoriesMenu.entrySet()) {
+            System.out.printf("[ %d ] %s%n", item.getKey(), item.getValue());
+        }
+
+        int choice = Helper.userSelection();
+        String selection = "";
+        boolean sentinel = true;
+
+        for (Map.Entry<Integer, String> item : categoriesMenu.entrySet()) {
+            if (choice == item.getKey()) {
+                selection = item.getValue();
+            }
+
+            sentinel = false;
+        }
+
+        if (sentinel) {
+            selection = "";
+        }
+
+        while (true) {
+            //String selection = Helper.categoriesSelection();
+
+            if (selection.isEmpty()) {
+                break;
+            } else {
+                System.out.printf("Enter Total Amount for %s Category:  ", selection);
+                double categoryAmount = input.nextDouble();
+                categories.put(selection, categoryAmount);
+            }
+        }
+    } // end of createCategories method
 
     private void createCard(int ReceiptID, String cardID, Map<String, Double> categories) {
 
@@ -178,7 +215,7 @@ public class Shop {
     public ArrayList<Purchase> getPurchases() { return purchases; }
 
     /*************************************************************/
-    /************************** HelperS **************************/
+    /************************** HELPERS **************************/
     /*************************************************************/
 
     public void showCards() {

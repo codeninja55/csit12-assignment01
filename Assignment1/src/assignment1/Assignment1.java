@@ -7,16 +7,6 @@ import java.util.*;
  * Email: dbac496@uowmail.edu.au
  */
 
-/* TODO 1
-* The purchase details are a flexible number of categories.
-* For example cat-A, cat-B, cat-C, cat-D, cat-E, cat-F ...
-* Do not use these names, think of a shop, and create your own
-* meaningful category names. The purchase details that need to be stored are:
-* for each category the purchase amount. You will also need to store the
-* category names somewhere.
-*
-*/
-
 /* TODO 3
 * Reorganise your code so that there is an additional Shop class. The shop
 * class has two attributes: (i) a list of cards and (ii) a list of purchases.
