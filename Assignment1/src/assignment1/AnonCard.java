@@ -14,8 +14,8 @@ public class AnonCard extends Card {
     // default constructor
     public AnonCard() {
         super.id = null;
-        super.points = 0;
         super.cardType = "AnonCard";
+        super.points = 0;
     }
 
     public AnonCard(String id) {
@@ -25,7 +25,7 @@ public class AnonCard extends Card {
     }
 
     /****** SETTERS ******/
-    public void setPoints(double purchaseAmount) { super.points = POINTS_RATE * purchaseAmount; }
+    public void setPoints(double totalAmount) { this.points = POINTS_RATE * totalAmount; }
 
     /****** GETTERS ******/
     public String toString() {
