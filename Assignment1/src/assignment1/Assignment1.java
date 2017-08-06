@@ -68,16 +68,16 @@ public class Assignment1 {
 
         ArrayList<Card> cardsCopy = new ArrayList<>(cards);
 
+        boolean newCard = true; // flag to see if new card required
+
         if (cardID.equalsIgnoreCase("cash")) {
             /* If it just a cash purchase, no updates required to card */
             purchases.add(new Purchase(receiptID, categories));
         } else {
-            int counter = 1; // check when for loops reaches end
-
             /* Loop through cards ArrayList to validate for existing cards
              * if the card does not exist, prompt user to make one. */
             for (Card card : cardsCopy) {
-                
+
                 if (card.id.equals(cardID)) {
                     String cardType = card.cardType;
                     Purchase newPurchase = new Purchase(receiptID, cardID, cardType, categories);
@@ -87,20 +87,17 @@ public class Assignment1 {
                         card.setBalance(newPurchase.calcCategoriesTotal());
 
                     purchases.add(newPurchase);
-                    counter++;
-                    System.out.println("If Bloack: " + counter);
-                } else if (cardsCopy.size() <= counter){
-                    counter++;
-                    System.out.println("Else if block");
-                } else {
-
-                    System.out.print("\nPlease create a new card for this purchase\n");
-
-                    createCard(receiptID, cardID, categories);
+                    newCard = false; // set flag so new card not created
+                    break;
                 }
             }
-        }
 
+            if (newCard) {
+                System.out.print("\nPlease create a new card for this purchase\n");
+
+                createCard(receiptID, cardID, categories);
+            }
+        }
     } // end of makePurchase method
 
     private static Map<String, Double> createCategories() {
@@ -137,21 +134,22 @@ public class Assignment1 {
         Purchase newPurchase = new Purchase(ReceiptID, cardID, cardChoice, categories);
         double totalAmount = newPurchase.calcCategoriesTotal();
 
-        if (cardChoice.equalsIgnoreCase("AnonCard")) {
+        if (cardChoice.isEmpty()) {
+            System.out.println("Exiting from creating card...");
+            break;
+        } else if (cardChoice.equalsIgnoreCase("AnonCard")) {
             System.out.println("\nCreating an Anon Card");
 
             newCard = new AnonCard(cardID);
 
             newCard.setPoints(totalAmount);
+            cards.add(newCard);
 
         } else {
 
             if (cardChoice.equalsIgnoreCase("BasicCard")) {
                 System.out.println("\nCreating a Basic Card");
             } else {
-
-                // TODO fix, if the cardChoice var is empty, it will always come here
-
                 System.out.println("\nCreating a Premium Card");
                 System.out.println("Please note there is a $25.0 fee to sign up.");
                 System.out.println("This will be added to your purchase.");
@@ -163,19 +161,17 @@ public class Assignment1 {
             System.out.print("\nEnter Customer Email:  ");
             email = input.nextLine();
 
-            if (cardChoice.equalsIgnoreCase("BasicCard")) {
+            if (cardChoice.equalsIgnoreCase("BasicCard"))
                 newCard = new BasicCard(cardID, name, email, totalAmount);
-            } else {
+            else
                 newCard = new PremiumCard(cardID, name, email, totalAmount);
-            }
 
             newCard.setPoints(totalAmount);
 
+            cards.add(newCard);
         }
 
-        cards.add(newCard);
         purchases.add(newPurchase);
-
     } // end of createCard method*/
 
     private static void createTestCode() {
@@ -243,7 +239,6 @@ public class Assignment1 {
         cards.add(new BasicCard("1", "Steve Rogers",
                 "captain_a@avengers.team",500D));
         cards.get(4).setPoints(100000D);
-
     }
 
     /****** GETTERS ******/
