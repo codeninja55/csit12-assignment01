@@ -188,14 +188,14 @@ public class Assignment1 {
         // AnonCard Test
         cards.add(new AnonCard("111"));
 
-        //Map<String, Double> cat2 = new HashMap<>();
-        cat1.replace("Systems", 0D);
-        cat1.replace("Laptops", 0D);
-        cat1.replace("Peripherals", 80D);
-        cat1.replace("Multimedia", 0D);
-        cat1.replace("Accessories", 100D);
+        Map<String, Double> cat2 = new HashMap<>();
+        cat2.put("Systems", 0D);
+        cat2.put("Laptops", 0D);
+        cat2.put("Peripherals", 80D);
+        cat2.put("Multimedia", 0D);
+        cat2.put("Accessories", 100D);
 
-        Purchase anonTest = new Purchase(100,"111","AnonCard",cat1);
+        Purchase anonTest = new Purchase(100,"111","AnonCard",cat2);
         cards.get(0).setPoints(anonTest.calcCategoriesTotal());
         purchases.add(anonTest);
 
@@ -240,6 +240,7 @@ public class Assignment1 {
         cards.get(4).setPoints(100000D);
 
     }
+
     /****** GETTERS ******/
 
     public static void showCards() {
@@ -258,10 +259,35 @@ public class Assignment1 {
         System.out.printf("%n%n%-20s %s","Category","Total");
 
         Map<String, Double> categoryTotal = new HashMap<>();
+        categoryTotal.put("Systems", 0D);
+        categoryTotal.put("Laptops", 0D);
+        categoryTotal.put("Peripherals", 0D);
+        categoryTotal.put("Multimedia", 0D);
+        categoryTotal.put("Accessories", 0D);
 
         for (Purchase purchase : purchases) {
+            Map<String, Double> map = purchase.getCatMap();
 
+            double systemsVal = categoryTotal.get("Systems") + map.get("Systems");
+            categoryTotal.replace("Systems", systemsVal);
+
+            double laptopsVal = categoryTotal.get("Laptops") + map.get("Laptops");
+            categoryTotal.replace("Laptops", laptopsVal);
+
+            double peripheralsVal = categoryTotal.get("Peripherals") + map.get("Peripherals");
+            categoryTotal.replace("Peripherals", peripheralsVal);
+
+            double multimediaVal = categoryTotal.get("Multimedia") + map.get("Multimedia");
+            categoryTotal.replace("Multimedia", multimediaVal);
+
+            double accessoriesVal = categoryTotal.get("Accessories") + map.get("Accessories");
+            categoryTotal.replace("Accessories", accessoriesVal);
         }
+
+        for (Map.Entry<String, Double> item : categoryTotal.entrySet()) {
+            System.out.printf("%n%-20s $%.2f", (item.getKey() + ":"), item.getValue());
+        }
+        System.out.println("\n\n");
     }
 
     /* TODO
