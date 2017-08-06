@@ -40,9 +40,9 @@ public class PremiumCard extends Card {
     /****** SETTERS ******/
     public void setPoints(double totalAmount) {
         if (totalAmount < 40 && this.balance < 1000) {
-            this.points = totalAmount * POINTS_RATE_LOW;
+            this.points += totalAmount * POINTS_RATE_LOW;
         } else {
-            this.points = totalAmount * POINTS_RATE_HIGH;
+            this.points += totalAmount * POINTS_RATE_HIGH;
         }
     }
 

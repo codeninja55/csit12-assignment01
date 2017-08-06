@@ -25,7 +25,7 @@ public class AnonCard extends Card {
     }
 
     /****** SETTERS ******/
-    public void setPoints(double totalAmount) { this.points = POINTS_RATE * totalAmount; }
+    public void setPoints(double totalAmount) { this.points += POINTS_RATE * totalAmount; }
 
     /****** GETTERS ******/
     public String toString() {
