@@ -69,8 +69,6 @@ public class Purchase {
 
     // private Date updatePurchaseTime() { } // if you really want
 
-    // private void updateCategory(String key, double value) { }
-
     /****** GETTERS ******/
 
     public String toString() {
