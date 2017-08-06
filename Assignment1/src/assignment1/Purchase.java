@@ -23,7 +23,11 @@ public class Purchase {
 
     // default constructor
     public Purchase() {
-
+        this.receiptID = 0;
+        this.cardID = "";
+        this.cardType = "AnonCard";
+        this.purchaseTime = setPurchaseTime();
+        this.categories = new HashMap<>();
     }
 
     // constructor for cash purchases
@@ -64,14 +68,6 @@ public class Purchase {
     }
 
     // private Date updatePurchaseTime() { } // if you really want
-
-    /*private void createCatMap() {
-        this.categories.put("Systems", 0D);
-        this.categories.put("Laptops", 0D);
-        this.categories.put("Peripherals", 0D);
-        this.categories.put("Multimedia", 0D);
-        this.categories.put("Accessories", 0D);
-    }*/
 
     // private void updateCategory(String key, double value) { }
 
