@@ -9,9 +9,9 @@ import java.util.*;
 
 public class Helper {
 
-    private Scanner input = new Scanner(System.in);
+    private static Scanner input = new Scanner(System.in);
 
-    public int userSelection() {
+    static int userSelection() {
         try {
             System.out.print("\nEnter your option:  ");
             int userChoice = input.nextInt();
@@ -20,7 +20,7 @@ public class Helper {
                 System.out.println("\nYou did not enter valid range from the menu.");
                 System.out.println("Please select again with an integer shown in the menu...");
                 input.nextLine();
-                return this.userSelection(); // recursively run again until input correct
+                return userSelection(); // recursively run again until input correct
             } else {
                 return userChoice;
             }
@@ -28,11 +28,11 @@ public class Helper {
             System.out.println("\nYou did not enter an integer from the menu.");
             System.out.println("Please select again with an integer (i.e. 1)...");
             input.nextLine(); // discard previous input
-            return this.userSelection();
+            return userSelection();
         }
     }
 
-    public void printMenu() {
+    static void printMenu() {
         System.out.println("\n******************************");
         System.out.println("********* Main Menu **********");
         System.out.println("******************************");
@@ -46,7 +46,7 @@ public class Helper {
         System.out.println("\n******************************");
     }
 
-    public void createCardMenu() {
+    static void createCardMenu() {
         System.out.printf("%nPlease select a Card Type choice from below:%n" +
                 "[ 1 ] Anon Card%n" +
                 "[ 2 ] Basic Card%n" +
@@ -54,10 +54,10 @@ public class Helper {
                 "[ 0 ] Exit%n");
     }
 
-    public String cardSelection() {
+    static String cardSelection() {
         createCardMenu();
 
-        int selection = this.userSelection();
+        int selection = userSelection();
 
         switch (selection) {
             case 0: return "";
@@ -69,7 +69,53 @@ public class Helper {
 
     }
 
-    public void categoriesMenu() {
+    static ArrayList<String> createCategories() {
+        ArrayList<String> categoriesList = new ArrayList<>();
+        String option;
+
+        System.out.printf("%s%n%s%n%s%n%s%n%n",
+                "Please type the Names for Categories",
+                "Type [ default ] to use a template list.",
+                "Template: Deals, Electronics, Toys, Sporting Goods, Fashion, Motors",
+                "***** Type [ exit ] or [ x ] to quit *****");
+
+        while (input.hasNextLine()) {
+            option = input.nextLine();
+
+            if (option.equalsIgnoreCase("x") ||
+                    option.equalsIgnoreCase("exit")) {
+                break;
+            } else if (option.equalsIgnoreCase("default")) {
+                categoriesList.add("Motors");
+                categoriesList.add("Electronics");
+                categoriesList.add("Fashion");
+                categoriesList.add("Toys");
+                categoriesList.add("Sporting Goods");
+                categoriesList.add("Deals");
+                break;
+            } else {
+                categoriesList.add(option);
+            }
+        }
+
+        System.out.println("\nYou have typed the following list:");
+
+        for (String item : categoriesList)
+            System.out.println(item);
+
+        System.out.print("\nDo you wish to continue? [Y/n]:");
+
+        String confirm = input.nextLine();
+
+        if (confirm.isEmpty() || confirm.equalsIgnoreCase("y")) {
+            return categoriesList;
+        } else {
+            return createCategories();
+        }
+    }
+
+    // TODO Needs to be modified
+    static void categoriesMenu(ArrayList<String> categoriesList) {
 
         /* TODO Use a dynamic array to create this menu with a loop
            TODO Use an array method to pop off menu items */
@@ -83,10 +129,10 @@ public class Helper {
                 "[ 0 ] Finished%n");
     }
 
-    public String categoriesSelection() {
-        categoriesMenu();
+    static String categoriesSelection() {
+        //categoriesMenu();
 
-        int selection = this.userSelection();
+        int selection = userSelection();
 
         switch(selection) {
             case 0: return "";
