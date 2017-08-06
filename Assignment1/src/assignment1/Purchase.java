@@ -67,8 +67,6 @@ public class Purchase {
         return now;
     }
 
-    // private Date updatePurchaseTime() { } // if you really want
-
     /****** GETTERS ******/
 
     public String toString() {
@@ -107,13 +105,6 @@ public class Purchase {
         return total;
     }
 
-    public Map<String, Double> getCatMap() { return this.categories; }
+    public Map<String, Double> getCategoriesMap() { return this.categories; }
 
-    /*public void displayMap() {
-        System.out.printf("%n%-12s %s","CATEGORY", "AMOUNT");
-        for (Map.Entry<String, Double> item : this.categories.entrySet()) {
-            System.out.printf("%n%-11s  $%.2f", item.getKey(), item.getValue());
-        }
-        System.out.println();
-    }*/
 }

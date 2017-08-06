@@ -121,31 +121,27 @@ public class Shop {
             counter++;
         }
 
-        System.out.printf("%nPlease select Purchase Category from below to add amount:%n");
-        System.out.printf("[ 0 ] %s%n", "Finished");
+        while (true) {
+            System.out.printf("%nPlease select Purchase Category from below to add amount:%n");
+            System.out.printf("[ 0 ] %s%n", "Finished");
 
-        for (Map.Entry<Integer, String> item : categoriesMenu.entrySet()) {
-            System.out.printf("[ %d ] %s%n", item.getKey(), item.getValue());
-        }
+            for (Map.Entry<Integer, String> item : categoriesMenu.entrySet())
+                System.out.printf("[ %d ] %s%n", item.getKey(), item.getValue());
 
-        int choice = Helper.userSelection();
-        String selection = "";
-        boolean sentinel = true;
+            int choice = Helper.userSelection();
+            String selection = "";
+            boolean sentinel = true;
 
-        for (Map.Entry<Integer, String> item : categoriesMenu.entrySet()) {
-            if (choice == item.getKey()) {
-                selection = item.getValue();
+            for (Map.Entry<Integer, String> item : categoriesMenu.entrySet()) {
+                if (choice == item.getKey()) {
+                    selection = item.getValue();
+                    sentinel = false;
+                }
             }
 
-            sentinel = false;
-        }
-
-        if (sentinel) {
-            selection = "";
-        }
-
-        while (true) {
-            //String selection = Helper.categoriesSelection();
+            if (sentinel) {
+                selection = "";
+            }
 
             if (selection.isEmpty()) {
                 break;
@@ -153,6 +149,7 @@ public class Shop {
                 System.out.printf("Enter Total Amount for %s Category:  ", selection);
                 double categoryAmount = input.nextDouble();
                 categories.put(selection, categoryAmount);
+                categoriesMenu.remove(choice);
             }
         }
     } // end of createCategories method
@@ -245,7 +242,7 @@ public class Shop {
 
         // TODO Change this to loop through the categories
         for (Purchase purchase : purchases) {
-            Map<String, Double> map = purchase.getCatMap();
+            Map<String, Double> map = purchase.getCategoriesMap();
 
             double systemsVal = categoryTotal.get("Systems") + map.get("Systems");
             categoryTotal.replace("Systems", systemsVal);
