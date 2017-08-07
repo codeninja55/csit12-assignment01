@@ -33,10 +33,7 @@ public class Shop {
         this.purchases = new ArrayList<>();
         this.cards = new ArrayList<>();
         this.categoriesList = categoriesList;
-
-        this.categories = new HashMap<>();
-        for (String item : categoriesList)
-            this.categories.put(item, 0D);
+        this.categories = createCategories(categoriesList);
     }
 
     /*************************************************************/
@@ -110,6 +107,14 @@ public class Shop {
         return categoriesMenu;
     }*/
 
+    private Map<String, Double> createCategories(ArrayList<String> categoriesList) {
+        Map<String, Double> categories = new HashMap<>();
+
+        for (String item : categoriesList)
+            categories.put(item, 0D);
+        
+        return categories;
+    }
 
     private void setCategories() {
 
@@ -152,7 +157,7 @@ public class Shop {
                 categoriesMenu.remove(choice);
             }
         }
-    } // end of createCategories method
+    } // end of setCategories method
 
     private void createCard(int ReceiptID, String cardID, Map<String, Double> categories) {
 
@@ -203,6 +208,21 @@ public class Shop {
 
         purchases.add(newPurchase);
     } // end of createCard method
+
+    private setPointsThreshold() {
+
+        System.out.printf("%n%s%n%s%n%s%n%s%n%s%n%s%n%s",
+                "You can set the Points Threshold as follows:",
+                "Low Minimum = integer (input 0 (default) for no minimum)",
+                "Low Maximum = integer",
+                "Medium Minimum = integer",
+                "Medium Maximum = integer",
+                "High Minimum = integer",
+                "High Maximum = integer (input 0 (default) for no maximum");
+
+
+
+    }
 
     /*************************************************************/
     /************************** GETTERS **************************/
@@ -273,12 +293,23 @@ public class Shop {
     * in each of these point 'bands'.
     * */
 
+
+
     public void showPoints() {
         // Total points by all customers
         double totalPoints = 0;
 
         // prompt user if they would like to make a new threshold <-- put this in Helper class
         // otherwise default to the ones already created below
+
+        System.out.printf("%n%s%n%s%n%s%n%s","Default Points Threshold Levesl:",
+                "Low (less than 500", "Medium (between 500 and 2000", "High (more than 2000)");
+
+        int confirm = Helper.confirm("Do you wish to change the points threshold levels? [Y/n]: ");
+
+        if (confirm == 1) {
+
+        }
 
         // Deafult points thresholds by customer
         int low = 0;
