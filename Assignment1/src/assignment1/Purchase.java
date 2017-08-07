@@ -3,6 +3,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.lang.Math;
 
 /*
  * @author Dinh Che
@@ -31,9 +32,9 @@ public class Purchase {
     }
 
     // constructor for cash purchases
-    public Purchase(int receiptID, Map<String, Double> categories) {
+    public Purchase(Map<String, Double> categories) {
 
-        this.receiptID = receiptID;
+        this.receiptID = setReceiptID();
         this.cardID = null;
         this.cardType = "Cash";
         this.categories = categories;
@@ -43,10 +44,9 @@ public class Purchase {
     } // end of constructor for cash
 
     // constructor for card purchases
-    public Purchase(int receiptID, String cardID, String cardType,
-                    Map<String, Double> categories) {
+    public Purchase(String cardID, String cardType, Map<String, Double> categories) {
 
-        this.receiptID = receiptID;
+        this.receiptID = setReceiptID();
         this.cardID = cardID;
         this.cardType = cardType;
         this.categories = categories;
@@ -58,13 +58,15 @@ public class Purchase {
     /****** SETTERS ******/
 
     private Date setPurchaseTime() {
-        // create a java calendar instance
+        // create a java calendar instance and sets that to a Date object
         // REFERENCE: https://alvinalexander.com/java/java-timestamp-example-current-time-now
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
-        // a java current time (now) instance
-        // java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
         return now;
+    }
+
+    private int setReceiptID() {
+        return Math.random() * 10000;
     }
 
     /****** GETTERS ******/
