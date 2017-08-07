@@ -24,7 +24,7 @@ public class Assignment1 {
 
         System.out.println("\n\nWELCOME TO CARD ANALYTICS\n");
 
-        Shop shop = new Shop(Helper.createCategories());
+        Shop shop = new Shop();
 
         createTestCode(shop);
 
@@ -35,15 +35,17 @@ public class Assignment1 {
 
             switch (menuChoice) {
                 case 0: System.exit(0);
-                case 1: shop.showCards();
+                case 1: shop.createCategories(Helper.userCategories(false));
                         break;
-                case 2: shop.showPurchases();
+                case 2: shop.showCards();
                         break;
-                case 3: shop.makePurchase();
+                case 3: shop.showPurchases();
                         break;
-                case 4: shop.showTotalPurchases();
+                case 4: shop.makePurchase();
                         break;
-                case 5: shop.showPoints();
+                case 5: shop.showTotalPurchases();
+                        break;
+                case 6: shop.showPoints();
                         break;
             }
         } // end while loop
@@ -58,22 +60,24 @@ public class Assignment1 {
 
         // Cash purchase test
         Map<String, Double> cat1 = new HashMap<>();
-        cat1.put("Systems", 800D);
-        cat1.put("Laptops", 0D);
-        cat1.put("Peripherals", 100D);
-        cat1.put("Multimedia", 0D);
-        cat1.put("Accessories", 0D);
+        cat1.put("Toys", 0D);
+        cat1.put("Sporting Goods", 800D);
+        cat1.put("Electronics", 0D);
+        cat1.put("Motors", 100D);
+        cat1.put("Fashion", 0D);
+        cat1.put("Deals", 500D);
         purchases.add(new Purchase(1,cat1));
 
         // AnonCard Test
         cards.add(new AnonCard("111"));
 
         Map<String, Double> cat2 = new HashMap<>();
-        cat2.put("Systems", 0D);
-        cat2.put("Laptops", 0D);
-        cat2.put("Peripherals", 80D);
-        cat2.put("Multimedia", 0D);
-        cat2.put("Accessories", 100D);
+        cat2.put("Deals", 0D);
+        cat2.put("Electronics", 200D);
+        cat2.put("Fashion", 80D);
+        cat2.put("Sporting Goods", 0D);
+        cat2.put("Toys", 100D);
+        cat2.put("Motors", 0D);
 
         Purchase anonTest = new Purchase(100,"111","AnonCard",cat2);
         cards.get(0).setPoints(anonTest.calcCategoriesTotal());
@@ -84,11 +88,12 @@ public class Assignment1 {
                 "scarlett@marvel.com", 0));
 
         Map<String, Double> cat3 = new HashMap<>();
-        cat3.put("Systems", 3000D);
-        cat3.put("Laptops", 5000D);
-        cat3.put("Peripherals", 500D);
-        cat3.put("Multimedia", 0D);
-        cat3.put("Accessories", 1000D);
+        cat3.put("Electronics", 3000D);
+        cat3.put("Fashion", 5000D);
+        cat3.put("Sporting Goods", 500D);
+        cat3.put("Motors", 0D);
+        cat3.put("Toys", 1000D);
+        cat3.put("Deals", 2000D);
 
         Purchase basicTest = new Purchase(1000, "69", "BasicCard",cat3);
         cards.get(1).setPoints(basicTest.calcCategoriesTotal());
@@ -100,11 +105,12 @@ public class Assignment1 {
                 "andrew@codeninja55.me",0));
 
         Map<String, Double> cat4 = new HashMap<>();
-        cat4.put("Systems", 100000D);
-        cat4.put("Laptops", 4500D);
-        cat4.put("Peripherals", 300D);
-        cat4.put("Multimedia", 10000D);
-        cat4.put("Accessories", 500D);
+        cat4.put("Electronics", 10000D);
+        cat4.put("Deals", 4500D);
+        cat4.put("Toys", 300D);
+        cat4.put("Motors", 10000D);
+        cat4.put("Sporting Goods", 500D);
+        cat4.put("Fashion", 2000D);
 
         Purchase premiumTest = new Purchase(2000,"55","PremiumCard",cat4);
         cards.get(2).setPoints(premiumTest.calcCategoriesTotal());
