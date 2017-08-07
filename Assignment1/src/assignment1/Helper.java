@@ -32,6 +32,22 @@ public class Helper {
         }
     }
 
+    static int confirm(String message) {
+
+        System.out.print("\n" + message);
+
+        String confirm = input.nextLine();
+
+        if (confirm.isEmpty() || confirm.equalsIgnoreCase("y")) {
+            return 1;
+        } else if (confirm.equalsIgnoreCase('n')){
+            return 0;
+        } else {
+            System.out.print("\nPlease only input y or no [press enter for default(Y)]: ");
+            return confirm(message);
+        }
+    }
+
     static void printMenu() {
         System.out.println("\n******************************");
         System.out.println("********* Main Menu **********");
@@ -103,11 +119,7 @@ public class Helper {
         for (String item : categoriesList)
             System.out.println(item);
 
-        System.out.print("\nDo you wish to continue? [Y/n]:");
-
-        String confirm = input.nextLine();
-
-        if (confirm.isEmpty() || confirm.equalsIgnoreCase("y")) {
+        if (confirm("Do you wish to continue? [Y/n]: ") == 1) {
             return categoriesList;
         } else {
             return createCategories();
