@@ -66,7 +66,7 @@ public class Assignment1 {
         cat1.put("Motors", 100D);
         cat1.put("Fashion", 0D);
         cat1.put("Deals", 500D);
-        purchases.add(new Purchase(1,cat1));
+        purchases.add(new Purchase(cat1));
 
         // AnonCard Test
         cards.add(new AnonCard("111"));
@@ -79,7 +79,7 @@ public class Assignment1 {
         cat2.put("Toys", 100D);
         cat2.put("Motors", 0D);
 
-        Purchase anonTest = new Purchase(100,"111","AnonCard",cat2);
+        Purchase anonTest = new Purchase("111","AnonCard",cat2);
         cards.get(0).setPoints(anonTest.calcCategoriesTotal());
         purchases.add(anonTest);
 
@@ -95,7 +95,7 @@ public class Assignment1 {
         cat3.put("Toys", 1000D);
         cat3.put("Deals", 2000D);
 
-        Purchase basicTest = new Purchase(1000, "69", "BasicCard",cat3);
+        Purchase basicTest = new Purchase("69", "BasicCard",cat3);
         cards.get(1).setPoints(basicTest.calcCategoriesTotal());
         cards.get(1).setBalance(basicTest.calcCategoriesTotal());
         purchases.add(basicTest);
@@ -112,7 +112,7 @@ public class Assignment1 {
         cat4.put("Sporting Goods", 500D);
         cat4.put("Fashion", 2000D);
 
-        Purchase premiumTest = new Purchase(2000,"55","PremiumCard",cat4);
+        Purchase premiumTest = new Purchase("55","PremiumCard",cat4);
         cards.get(2).setPoints(premiumTest.calcCategoriesTotal());
         cards.get(2).setBalance(premiumTest.calcCategoriesTotal());
         purchases.add(premiumTest);
