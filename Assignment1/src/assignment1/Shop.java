@@ -14,7 +14,6 @@ public class Shop {
 
     private ArrayList<Card> cards;
     private ArrayList<Purchase> purchases;
-    private ArrayList<String> categoriesList; // store a String list of category keys
     private Map<String, Double> categories;
     private Scanner input = new Scanner(System.in);
     //private Helper Helper = new Helper(); // Helper class to print menu's to console
@@ -27,14 +26,8 @@ public class Shop {
     public Shop() {
         this.purchases = new ArrayList<>();
         this.cards = new ArrayList<>();
-    }
-
-    // constructor to create categories list
-    public Shop(ArrayList<String> categoriesList) {
-        this.purchases = new ArrayList<>();
-        this.cards = new ArrayList<>();
-        this.categoriesList = categoriesList;
-        this.categories = createCategories(categoriesList);
+        this.categories = new HashMap<>();
+        this.createCategories(Helper.userCategories(true));
     }
 
     /*************************************************************/
@@ -43,15 +36,9 @@ public class Shop {
 
     public void makePurchase() {
 
-        System.out.print("\nEnter Receipt ID:  ");
-        int receiptID = input.nextInt();
-        input.nextLine();
-
-        System.out.print("Enter Card ID [or Cash]:  ");
+        System.out.print("\n\nEnter Card ID [or Cash]:  ");
         String cardID = input.nextLine();
 
-        // TODO Fix this
-        //Map<String, Double> categories = setCategories();
         setCategories();
 
         /*
@@ -73,7 +60,7 @@ public class Shop {
 
         if (cardID.equalsIgnoreCase("cash")) {
             /* If it just a cash purchase, no updates required to card */
-            purchases.add(new Purchase(receiptID, categories));
+            purchases.add(new Purchase(categories));
         } else {
             /* Loop through cards ArrayList to validate for existing cards
              * if the card does not exist, prompt user to make one. */
@@ -81,7 +68,7 @@ public class Shop {
 
                 if (card.id.equals(cardID)) {
                     String cardType = card.cardType;
-                    Purchase newPurchase = new Purchase(receiptID, cardID, cardType, categories);
+                    Purchase newPurchase = new Purchase(cardID, cardType, categories);
                     card.setPoints(newPurchase.calcCategoriesTotal());
 
                     if (!cardType.equalsIgnoreCase("AnonCard"))
@@ -95,19 +82,14 @@ public class Shop {
 
             if (newCard) {
                 System.out.print("\nPlease create a new card for this purchase\n");
-
-                createCard(receiptID, cardID, categories);
+                createCard(cardID, categories);
             }
         }
     } // end of makePurchase method
 
-    private Map<String, Double> createCategories(ArrayList<String> categoriesList) {
-        Map<String, Double> categories = new HashMap<>();
-
+    public void createCategories(ArrayList<String> categoriesList) {
         for (String item : categoriesList)
-            categories.put(item, 0D);
-
-        return categories;
+            this.categories.put(item, 0D);
     }
 
     private void setCategories() {
@@ -119,7 +101,7 @@ public class Shop {
         Map<Integer, String> categoriesMenu = new HashMap<>();
         int counter = 1;
 
-        for (Map.Entry<String, Double> item : categories.entrySet()) {
+        for (Map.Entry<String, Double> item : this.categories.entrySet()) {
             categoriesMenu.put(counter,item.getKey());
             counter++;
         }
@@ -146,9 +128,8 @@ public class Shop {
                 }
             }
 
-            if (sentinel) {
+            if (sentinel)
                 selection = "";
-            }
 
             if (selection.isEmpty()) {
                 break;
@@ -161,7 +142,7 @@ public class Shop {
         }
     } // end of setCategories method
 
-    private void createCard(int ReceiptID, String cardID, Map<String, Double> categories) {
+    private void createCard(String cardID, Map<String, Double> categories) {
 
         String name, email;
         Card newCard;
@@ -169,7 +150,7 @@ public class Shop {
         String cardChoice = Helper.cardSelection();
         input.nextLine(); // consume newline character leftover from nextInt()
 
-        Purchase newPurchase = new Purchase(ReceiptID, cardID, cardChoice, categories);
+        Purchase newPurchase = new Purchase(cardID, cardChoice, categories);
         double totalAmount = newPurchase.calcCategoriesTotal();
 
         if (cardChoice.isEmpty()) {
@@ -241,37 +222,31 @@ public class Shop {
     }
 
     public void showTotalPurchases() {
-        System.out.printf("%n%n%-20s %s","Category","Total");
+        System.out.printf("%n%n%-20s %s%n","Category","Total");
 
-        Map<String, Double> categoryTotal = new HashMap<>();
-        categoryTotal.put("Systems", 0D);
-        categoryTotal.put("Laptops", 0D);
-        categoryTotal.put("Peripherals", 0D);
-        categoryTotal.put("Multimedia", 0D);
-        categoryTotal.put("Accessories", 0D);
+        /*Create a Map of the default categories map with the same keys
+        * and the value being an array. */
+        Map<String, ArrayList<Double>> categoryTotal = new HashMap<>();
 
-        // TODO Change this to loop through the categories
+        for (Map.Entry<String, Double> item : categories.entrySet())
+            categoryTotal.put(item.getKey(), new ArrayList<>());
+
         for (Purchase purchase : purchases) {
-            Map<String, Double> map = purchase.getCategoriesMap();
+            Map<String, Double> categoriesMap = purchase.getCategoriesMap();
 
-            double systemsVal = categoryTotal.get("Systems") + map.get("Systems");
-            categoryTotal.replace("Systems", systemsVal);
-
-            double laptopsVal = categoryTotal.get("Laptops") + map.get("Laptops");
-            categoryTotal.replace("Laptops", laptopsVal);
-
-            double peripheralsVal = categoryTotal.get("Peripherals") + map.get("Peripherals");
-            categoryTotal.replace("Peripherals", peripheralsVal);
-
-            double multimediaVal = categoryTotal.get("Multimedia") + map.get("Multimedia");
-            categoryTotal.replace("Multimedia", multimediaVal);
-
-            double accessoriesVal = categoryTotal.get("Accessories") + map.get("Accessories");
-            categoryTotal.replace("Accessories", accessoriesVal);
+            for (Map.Entry<String, Double> item : categoriesMap.entrySet())
+                categoryTotal.get(item.getKey()).add(item.getValue());
         }
 
-        for (Map.Entry<String, Double> item : categoryTotal.entrySet())
-            System.out.printf("%n%-20s $%.2f", (item.getKey() + ":"), item.getValue());
+        /*Loop through each List and sum them together to print*/
+
+        double sum = 0;
+        for (Map.Entry<String, ArrayList<Double>> item : categoryTotal.entrySet()) {
+            for (Double values : item.getValue())
+                sum += values;
+
+            System.out.printf("%n%-20s $%.2f", (item.getKey() + ":"), sum);
+        }
 
         System.out.println("\n\n");
     }
@@ -311,23 +286,33 @@ public class Shop {
 
             // TODO Need to do some validation checking if numbers are fine
             valArr[0] = min;
-            valArr[1] = max;
+
+            /*Checks the last Threshold value if it is set to 0 and sets the value to
+             *the MAX_VALUE allowed for an integer */
+            if (counter == thresholdNumber && max == 0)
+                valArr[1] = Integer.MAX_VALUE;
+            else
+                valArr[1] = max;
 
             thresholdList.put(name, valArr);
         }
-
         return thresholdList;
     }
 
     private Map<String, Integer> setPointsThreshold(Map<String, int[]> thresholdList) {
 
         Map<String, Integer> thresholdResults = new HashMap<>();
-        int count = 0;
 
-        for (Card card : cards) {
-            for (Map.Entry<String, int[]> item : thresholdList.entrySet()) {
+        /*Uses the thresholdLIst created as a Map container with key being String name
+        * and the value being an array of min at index 0 and max at index 1*/
+
+        for (Map.Entry<String, int[]> item : thresholdList.entrySet()) {
+            int count = 1;
+            for (Card card : cards) {
                 if (card.points >= item.getValue()[0] && card.points < item.getValue()[1]) {
                     thresholdResults.put(item.getKey(), count++);
+                } else {
+                    thresholdResults.put(item.getKey(), 0);
                 }
             }
         }
@@ -341,14 +326,12 @@ public class Shop {
         // prompt user if they would like to make a new threshold <-- put this in Helper class
         // otherwise default to the ones already created below
 
-        System.out.printf("%n%s%n%s%n%s%n%s","Default Points Threshold Levelsl:",
+        System.out.printf("%n%s%n%s%n%s%n%s","Default Points Threshold Levels:",
                 "Low (less than 500", "Medium (between 500 and 2000", "High (more than 2000)");
 
         int confirm = Helper.confirm("Do you wish to change the points threshold levels? [Y/n]: ");
-        input.nextLine();
 
         if (confirm == 1) {
-
             Map<String, int[]> thresholdList = createThresholdContainer();
             Map<String, Integer> thresholdResults = setPointsThreshold(thresholdList);
 
@@ -363,6 +346,9 @@ public class Shop {
                         item.getKey(), thresholdList.get(item.getKey())[0],
                         thresholdList.get(item.getKey())[1], item.getValue());
             }
+
+            System.out.println("\n" + thresholdList);
+            System.out.println(thresholdResults);
 
         } else if (confirm == 0) {
             // Default points thresholds by customer
@@ -383,7 +369,6 @@ public class Shop {
             }
 
             System.out.printf("%n%nTotal Points for All Customers: %.2f%n%n", totalPoints);
-
             System.out.println("Customers by Thresholds");
             System.out.printf("Low (less than 500): %d%nMedium (500 to 2000): %d%n" +
                     "High (more than 2000): %d%n%n", low, medium, high);
