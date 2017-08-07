@@ -1,8 +1,5 @@
 //package assignment1;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.lang.Math;
 
 /*
@@ -24,7 +21,7 @@ public class Purchase {
 
     // default constructor
     public Purchase() {
-        this.receiptID = 0;
+        this.receiptID = setReceiptID();
         this.cardID = "";
         this.cardType = "AnonCard";
         this.purchaseTime = setPurchaseTime();
@@ -66,7 +63,8 @@ public class Purchase {
     }
 
     private int setReceiptID() {
-        return Math.random() * 10000;
+        Random receiptID = new Random();
+        return receiptID.ints(10000000,99999999).findFirst().getAsInt();
     }
 
     /****** GETTERS ******/
