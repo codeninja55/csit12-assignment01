@@ -283,25 +283,21 @@ public class Shop {
     * in each of these point 'bands'.
     * */
 
-    private void setPointsThreshold() {
-
-        Map<String, Integer> pointsThreshold = new HashMap<>();
-
-        pointsThreshold.put("lowMin", 0);
-        pointsThreshold.put("lowMax", 0);
+    private Map<String, int[]> createThresholdContainer() {
 
         System.out.printf("%n%s%n%s%n%s%n%s%n%s",
                 "You can set the Points Threshold as follows:",
-                "Give a number of thresholds.",
-                "Give the minimum value for a threshold.",
-                "Give the maximum value for a threshold.",
-                "Repeat until number of thresholds has a min and max.");
+                "1. Give a number of thresholds.",
+                "2. Give the minimum value for a threshold (For threshold 1, 0 for no minimum).",
+                "3. Give the maximum value for a threshold (For final threshold, 0 for no maximum).",
+                "4. Repeat until number of thresholds have a min and max value.");
 
         System.out.print("\n\nInput the number of thresholds:  ");
         int thresholdNumber = input.nextInt();
 
         Map<String, int[]> thresholdList = new HashMap<>();
 
+        // Grab input from user for a min and max and store them as elements in int[]
         for (int counter = 1 ; counter <= thresholdNumber ; counter++ ) {
             int[] valArr = new int[2];
             String name = "Threshold " + Integer.toString(counter);
@@ -311,24 +307,31 @@ public class Shop {
 
             System.out.printf("Input %s maximum value:  ", name);
             int max = input.nextInt();
+            input.nextLine(); // consume dangling newline char
 
+            // TODO Need to do some validation checking if numbers are fine
             valArr[0] = min;
             valArr[1] = max;
 
             thresholdList.put(name, valArr);
         }
 
+        return thresholdList;
+    }
+
+    private Map<String, Integer> setPointsThreshold(Map<String, int[]> thresholdList) {
+
         Map<String, Integer> thresholdResults = new HashMap<>();
         int count = 0;
 
         for (Card card : cards) {
-
             for (Map.Entry<String, int[]> item : thresholdList.entrySet()) {
                 if (card.points >= item.getValue()[0] && card.points < item.getValue()[1]) {
                     thresholdResults.put(item.getKey(), count++);
                 }
             }
         }
+        return thresholdResults;
     }
 
     public void showPoints() {
@@ -338,19 +341,31 @@ public class Shop {
         // prompt user if they would like to make a new threshold <-- put this in Helper class
         // otherwise default to the ones already created below
 
-        setPointsThreshold();
-
-        /*System.out.printf("%n%s%n%s%n%s%n%s","Default Points Threshold Levelsl:",
+        System.out.printf("%n%s%n%s%n%s%n%s","Default Points Threshold Levelsl:",
                 "Low (less than 500", "Medium (between 500 and 2000", "High (more than 2000)");
 
         int confirm = Helper.confirm("Do you wish to change the points threshold levels? [Y/n]: ");
+        input.nextLine();
 
         if (confirm == 1) {
 
-            // write code for setting new thresholds
+            Map<String, int[]> thresholdList = createThresholdContainer();
+            Map<String, Integer> thresholdResults = setPointsThreshold(thresholdList);
+
+            for (Card card : cards)
+                totalPoints += card.getPoints();
+
+            System.out.printf("%n%nTotal Points for All Customers: %.2f%n%n", totalPoints);
+            System.out.println("Customers by Thresholds");
+
+            for (Map.Entry<String, Integer> item : thresholdResults.entrySet()) {
+                System.out.printf("%n%s (Min: %d; Max: %d): %d",
+                        item.getKey(), thresholdList.get(item.getKey())[0],
+                        thresholdList.get(item.getKey())[1], item.getValue());
+            }
 
         } else if (confirm == 0) {
-            // Deafult points thresholds by customer
+            // Default points thresholds by customer
             int low = 0;
             int medium = 0;
             int high = 0;
@@ -369,9 +384,9 @@ public class Shop {
 
             System.out.printf("%n%nTotal Points for All Customers: %.2f%n%n", totalPoints);
 
-            System.out.println("Customers by Groupings");
+            System.out.println("Customers by Thresholds");
             System.out.printf("Low (less than 500): %d%nMedium (500 to 2000): %d%n" +
                     "High (more than 2000): %d%n%n", low, medium, high);
-        }*/
+        }
     }
 }
