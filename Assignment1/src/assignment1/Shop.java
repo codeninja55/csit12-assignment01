@@ -1,5 +1,4 @@
-//package assignment1;
-import java.lang.reflect.Array;
+package assignment1;
 import java.util.*;
 
 /*

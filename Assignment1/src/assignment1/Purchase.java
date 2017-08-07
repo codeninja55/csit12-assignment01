@@ -1,6 +1,9 @@
-//package assignment1;
-import java.util.*;
-import java.lang.Math;
+package assignment1;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.Random;
 
 /*
  * @author Dinh Che
