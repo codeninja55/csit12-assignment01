@@ -98,9 +98,8 @@ public class Purchase {
     public double calcCategoriesTotal() {
         double total = 0;
 
-        for (Map.Entry<String, Double> item : this.categories.entrySet()) {
+        for (Map.Entry<String, Double> item : this.categories.entrySet())
             total += item.getValue();
-        }
 
         return total;
     }

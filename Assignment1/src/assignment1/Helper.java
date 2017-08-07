@@ -40,7 +40,7 @@ public class Helper {
 
         if (confirm.isEmpty() || confirm.equalsIgnoreCase("y")) {
             return 1;
-        } else if (confirm.equalsIgnoreCase('n')){
+        } else if (confirm.equalsIgnoreCase("n")){
             return 0;
         } else {
             System.out.print("\nPlease only input y or no [press enter for default(Y)]: ");
@@ -95,6 +95,7 @@ public class Helper {
                 "Template: Deals, Electronics, Toys, Sporting Goods, Fashion, Motors",
                 "***** Type [ exit ] or [ x ] to quit *****");
 
+        // TODO CHANGE THIS to show something that represents a prompt
         while (input.hasNextLine()) {
             option = input.nextLine();
 

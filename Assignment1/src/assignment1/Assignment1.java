@@ -26,7 +26,7 @@ public class Assignment1 {
 
         Shop shop = new Shop(Helper.createCategories());
 
-        //createTestCode(shop);
+        createTestCode(shop);
 
         while (true) {
             Helper.printMenu();
