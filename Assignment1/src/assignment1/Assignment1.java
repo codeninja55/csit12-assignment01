@@ -7,15 +7,6 @@ import java.util.*;
  * Email: dbac496@uowmail.edu.au
  */
 
-/* TODO 3
-* Reorganise your code so that there is an additional Shop class. The shop
-* class has two attributes: (i) a list of cards and (ii) a list of purchases.
-* The makePurchase method should be moved into the Shop class. New purchase
-* obejcts should only be created in the Shop class. You'll need to create a
-* shop in your main method. Testing should then be done via various Shop class
-* methods.
-* */
-
 // TODO Use BigDecimal for monetary calculations
 
 public class Assignment1 {
