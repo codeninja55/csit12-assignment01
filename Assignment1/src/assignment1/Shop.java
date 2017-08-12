@@ -1,5 +1,9 @@
 //package assignment1;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Scanner;
+
 
 /*
  *
@@ -15,7 +19,6 @@ public class Shop {
     private ArrayList<Purchase> purchases;
     private Map<String, Double> categories;
     private Scanner input = new Scanner(System.in);
-    //private Helper Helper = new Helper(); // Helper class to print menu's to console
 
     /******************************************************************/
     /************************** CONSTRUCTORS **************************/
@@ -26,32 +29,31 @@ public class Shop {
         this.purchases = new ArrayList<>();
         this.cards = new ArrayList<>();
         this.categories = new HashMap<>();
-        this.createCategories(Helper.userCategories(true));
+        this.createCategories(userCategories(true));
+    }
+
+    // constructor for custom categoriess
+    public Shop(boolean auto) {
+        this.purchases = new ArrayList<Purchase>();
+        this.cards = new ArrayList<Card>();
+        this.categories = new HashMap<String, Double>();
+        this.createCategories(userCategories(auto));
     }
 
     /*************************************************************/
     /************************** SETTERS **************************/
     /*************************************************************/
 
-    public void makePurchase() {
-
-        System.out.print("\n\nEnter Card ID [or Cash]:  ");
-        String cardID = input.nextLine();
+    public void makePurchase(String cardID) {
 
         setCategories();
 
-        /*
-        * NOTE: Regarding ConcurrentModificationError when
-        * iterating over ArrayList
+        /*NOTE: Regarding ConcurrentModificationError when iterating over ArrayList
         * There are 2 options available:
-        * 1. Create a copy of cards ArrayList using
-        *    ArrayList(Collection<? extends E> c)
+        * 1. Create a copy of cards ArrayList using ArrayList(Collection<? extends E> c)
         *    to avoid Modifying the original cards list
-        * 2. Iterating over original ArrayList to find
-        *    index of existing cards and making
-        *    modifications to any existing card objects
-        *    using its index in the ArrayList
-        * */
+        * 2. Iterating over original ArrayList to find index of existing cards and making
+        *    modifications to any existing card objects using its index in the ArrayList*/
 
         ArrayList<Card> cardsCopy = new ArrayList<>(cards);
 
@@ -85,6 +87,61 @@ public class Shop {
             }
         }
     } // end of makePurchase method
+
+    public ArrayList<String> userCategories(boolean auto) {
+        ArrayList<String> categoriesList = new ArrayList<>();
+        String option;
+
+        // TODO CHANGE THIS to show something that represents a prompt
+        if (auto) {
+            /*If the auto flag is true, the categories list will automatically
+            * populate with the default*/
+            categoriesList.add("Motors");
+            categoriesList.add("Electronics");
+            categoriesList.add("Fashion");
+            categoriesList.add("Toys");
+            categoriesList.add("Sporting Goods");
+            categoriesList.add("Deals");
+
+            return categoriesList;
+        } else {
+            System.out.printf("%s%n%s%n%s%n%s%n%n",
+                    "Please type the names for a category.",
+                    "Type [ default ] to use a template list.",
+                    "Template: Deals, Electronics, Toys, Sporting Goods, Fashion, Motors",
+                    "***** Type [ finished ] or [ x ] to save and quit *****");
+
+            while (input.hasNextLine()) {
+                option = input.nextLine();
+
+                if (option.equalsIgnoreCase("x") ||
+                        option.equalsIgnoreCase("finished")) {
+                    break;
+                } else if (option.equalsIgnoreCase("default")) {
+                    categoriesList.add("Motors");
+                    categoriesList.add("Electronics");
+                    categoriesList.add("Fashion");
+                    categoriesList.add("Toys");
+                    categoriesList.add("Sporting Goods");
+                    categoriesList.add("Deals");
+                    break;
+                } else {
+                    categoriesList.add(option);
+                }
+            }
+
+            System.out.println("\nYou have typed the following list:");
+
+            for (String item : categoriesList)
+                System.out.println(item);
+
+            if (Helper.confirm("Do you wish to continue? [Y/n]: ") == 1) {
+                return categoriesList;
+            } else {
+                return userCategories(false);
+            }
+        }
+    } // end of userCategories method
 
     public void createCategories(ArrayList<String> categoriesList) {
         for (String item : categoriesList)
