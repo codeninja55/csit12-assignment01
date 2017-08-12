@@ -26,7 +26,7 @@ public class Assignment1 {
 
             switch (menuChoice) {
                 case 0: System.exit(0);
-                case 1: shop.createCategories(Helper.userCategories(false));
+                case 1: shop.createCategories(shop.userCategories(false));
                         break;
                 case 2: shop.showCards();
                         break;
@@ -57,10 +57,10 @@ public class Assignment1 {
         cat1.put("Motors", 100D);
         cat1.put("Fashion", 0D);
         cat1.put("Deals", 500D);
-        purchases.add(new Purchase(cat1));
+
+        shop.makePurchase("cash");
 
         // AnonCard Test
-        cards.add(new AnonCard("111"));
 
         Map<String, Double> cat2 = new HashMap<>();
         cat2.put("Deals", 0D);
@@ -73,6 +73,8 @@ public class Assignment1 {
         Purchase anonTest = new Purchase("111","AnonCard",cat2);
         cards.get(0).calcPoints(anonTest.calcCategoriesTotal());
         purchases.add(anonTest);
+
+        shop.makePurchase("111");
 
         // BasicCard Test
         cards.add(new BasicCard("69", "Scarlett Johansson",
