@@ -20,9 +20,9 @@ public class Shop {
     private Map<String, Double> categories;
     private Scanner input = new Scanner(System.in);
 
-    /******************************************************************/
-    /************************** CONSTRUCTORS **************************/
-    /******************************************************************/
+    /*###########################################################*/
+    /*#################### CONSTRUCTORS #########################*/
+    /*###########################################################*/
 
     // default
     public Shop() {
@@ -32,10 +32,18 @@ public class Shop {
         this.createCategories(userCategories(true));
     }
 
+    // constructor to initialize shop with custom categories
+    public Shop(boolean auto) {
+        this.purchases = new ArrayList<>();
+        this.cards = new ArrayList<>();
+        this.categories = new HashMap<>();
+        this.createCategories(userCategories(auto));
+    }
 
-    /*************************************************************/
-    /************************** SETTERS **************************/
-    /*************************************************************/
+
+    /*###########################################################*/
+    /*######################### SETTERS #########################*/
+    /*###########################################################*/
 
     public void makePurchase(String cardID, Map<String, Double> categories) {
 
@@ -85,7 +93,6 @@ public class Shop {
         ArrayList<String> categoriesList = new ArrayList<>();
         String option;
 
-        // TODO CHANGE THIS to show something that represents a prompt
         if (auto) {
             /*If the auto flag is true, the categories list will automatically
             * populate with the default*/
@@ -99,7 +106,7 @@ public class Shop {
             return categoriesList;
         } else {
             System.out.printf("%s%n%s%n%s%n%s%n%n",
-                    "Please type the names for a category.",
+                    "Please type the names for a category to add to the list.",
                     "Type [ default ] to use a template list.",
                     "Template: Deals, Electronics, Toys, Sporting Goods, Fashion, Motors",
                     "***** Type [ finished ] or [ x ] to save and quit *****");
@@ -255,9 +262,17 @@ public class Shop {
         for (int counter = 1 ; counter <= thresholdNumber ; counter++ ) {
             int[] valArr = new int[2];
             String name = "Threshold " + Integer.toString(counter);
+            boolean minSentinel = false;
+            boolean maxSentinel = false;
 
-            System.out.printf("%nInput %s minimum value:  ", name);
-            int min = input.nextInt();
+            // TODO need to fix something here. Probably separate into helper method for recursion
+            do {
+                System.out.printf("%nInput %s minimum value:  ", name);
+                int min = input.nextInt();
+                
+                minSentinel = false;
+            } while(minSentinel);
+
 
             System.out.printf("Input %s maximum value:  ", name);
             int max = input.nextInt();
@@ -298,16 +313,16 @@ public class Shop {
         return thresholdResults;
     }
 
-    /*************************************************************/
-    /************************** GETTERS **************************/
-    /*************************************************************/
+    /*###########################################################*/
+    /*######################### GETTERS #########################*/
+    /*###########################################################*/
     public ArrayList<Card> getCards() { return cards; }
 
     public ArrayList<Purchase> getPurchases() { return purchases; }
 
-    /*************************************************************/
-    /************************** HELPERS **************************/
-    /*************************************************************/
+    /*###########################################################*/
+    /*######################### HELPERS #########################*/
+    /*###########################################################*/
 
     public void showCards() {
         System.out.printf("%n%n%-12s %-10s %-10s %-15s %-20s %-20s%n",
@@ -340,7 +355,7 @@ public class Shop {
 
             System.out.println(categoriesMap);
 
-            /* Lopp through the categories stored in purchase and add them to the ArrayList of
+            /* Loop through the categories stored in purchase and add them to the ArrayList of
              * of the default categories map */
             for (Map.Entry<String, Double> item : categoriesMap.entrySet())
                 categoryTotal.get(item.getKey()).add(item.getValue());
