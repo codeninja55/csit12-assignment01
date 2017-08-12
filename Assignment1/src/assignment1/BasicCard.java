@@ -38,9 +38,9 @@ public class BasicCard extends Card {
     }
 
     /****** SETTERS ******/
-    public void setPoints(double totalAmount) { this.points += POINTS_RATE * totalAmount; }
+    public void calcPoints(double totalAmount) { this.points += POINTS_RATE * totalAmount; }
 
-    public void setBalance(double totalAmount) { this.balance += totalAmount; }
+    public void calcBalance(double totalAmount) { this.balance += totalAmount; }
 
     /****** GETTERS ******/
     public String toString() {

@@ -38,14 +38,14 @@ public class PremiumCard extends Card {
     }
 
     /****** SETTERS ******/
-    public void setPoints(double totalAmount) {
+    public void calcPoints(double totalAmount) {
         if (totalAmount < 40 && this.balance < 1000)
             this.points += totalAmount * POINTS_RATE_LOW;
         else
             this.points += totalAmount * POINTS_RATE_HIGH;
     }
 
-    public void setBalance(double totalAmount) { this.balance += totalAmount; }
+    public void calcBalance(double totalAmount) { this.balance += totalAmount; }
 
     /****** GETTERS ******/
     public String toString() {

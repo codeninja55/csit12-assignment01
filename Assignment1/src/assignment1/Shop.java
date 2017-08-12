@@ -68,10 +68,10 @@ public class Shop {
                 if (card.id.equals(cardID)) {
                     String cardType = card.cardType;
                     Purchase newPurchase = new Purchase(cardID, cardType, categories);
-                    card.setPoints(newPurchase.calcCategoriesTotal());
+                    card.calcPoints(newPurchase.calcCategoriesTotal());
 
                     if (!cardType.equalsIgnoreCase("AnonCard"))
-                        card.setBalance(newPurchase.calcCategoriesTotal());
+                        card.calcBalance(newPurchase.calcCategoriesTotal());
 
                     purchases.add(newPurchase);
                     newCard = false; // set flag so new card not created
@@ -159,7 +159,7 @@ public class Shop {
 
             newCard = new AnonCard(cardID);
 
-            newCard.setPoints(totalAmount);
+            newCard.calcPoints(totalAmount);
             cards.add(newCard);
 
         } else {
@@ -183,7 +183,7 @@ public class Shop {
             else
                 newCard = new PremiumCard(cardID, name, email, totalAmount);
 
-            newCard.setPoints(totalAmount);
+            newCard.calcPoints(totalAmount);
 
             cards.add(newCard);
         }
@@ -192,7 +192,66 @@ public class Shop {
     } // end of createCard method
 
 
-    /*##### PLACEHOLDER FOR SETPOINTSTHRESHOLDER METHOD #####*/
+    private Map<String, int[]> createThresholdContainer() {
+
+        System.out.printf("%n%s%n%s%n%s%n%s%n%s",
+                "You can set the Points Threshold as follows:",
+                "1. Give a number of thresholds.",
+                "2. Give the minimum value for a threshold (For threshold 1, 0 for no minimum).",
+                "3. Give the maximum value for a threshold (For final threshold, 0 for no maximum).",
+                "4. Repeat until number of thresholds have a min and max value.");
+
+        System.out.print("\n\nInput the number of thresholds:  ");
+        int thresholdNumber = input.nextInt();
+
+        Map<String, int[]> thresholdList = new HashMap<>();
+
+        // Grab input from user for a min and max and store them as elements in int[]
+        for (int counter = 1 ; counter <= thresholdNumber ; counter++ ) {
+            int[] valArr = new int[2];
+            String name = "Threshold " + Integer.toString(counter);
+
+            System.out.printf("%nInput %s minimum value:  ", name);
+            int min = input.nextInt();
+
+            System.out.printf("Input %s maximum value:  ", name);
+            int max = input.nextInt();
+            input.nextLine(); // consume dangling newline char
+
+            // TODO Need to do some validation checking if numbers are fine
+            valArr[0] = min;
+
+            /*Checks the last Threshold value if it is set to 0 and sets the value to
+             *the MAX_VALUE allowed for an integer */
+            if (counter == thresholdNumber && max == 0)
+                valArr[1] = Integer.MAX_VALUE;
+            else
+                valArr[1] = max;
+
+            thresholdList.put(name, valArr);
+        }
+        return thresholdList;
+    }
+
+    private Map<String, Integer> calcPointsThreshold(Map<String, int[]> thresholdList) {
+
+        Map<String, Integer> thresholdResults = new HashMap<>();
+
+        /*Uses the thresholdLIst created as a Map container with key being String name
+        * and the value being an array of min at index 0 and max at index 1*/
+
+        for (Map.Entry<String, int[]> item : thresholdList.entrySet()) {
+            int count = 1;
+            for (Card card : cards) {
+                if (card.points >= item.getValue()[0] && card.points < item.getValue()[1]) {
+                    thresholdResults.put(item.getKey(), count++);
+                } else {
+                    thresholdResults.put(item.getKey(), 0);
+                }
+            }
+        }
+        return thresholdResults;
+    }
 
     /*************************************************************/
     /************************** GETTERS **************************/
@@ -250,73 +309,6 @@ public class Shop {
         System.out.println("\n\n");
     }
 
-    /* TODO 2
-    * The user can enter via the console an arbitrary number of thresholds
-    * (instead of the three required in standard deliverable number 4),
-    * then these thresholds will be used when reporting the number of customers
-    * in each of these point 'bands'.
-    * */
-
-    private Map<String, int[]> createThresholdContainer() {
-
-        System.out.printf("%n%s%n%s%n%s%n%s%n%s",
-                "You can set the Points Threshold as follows:",
-                "1. Give a number of thresholds.",
-                "2. Give the minimum value for a threshold (For threshold 1, 0 for no minimum).",
-                "3. Give the maximum value for a threshold (For final threshold, 0 for no maximum).",
-                "4. Repeat until number of thresholds have a min and max value.");
-
-        System.out.print("\n\nInput the number of thresholds:  ");
-        int thresholdNumber = input.nextInt();
-
-        Map<String, int[]> thresholdList = new HashMap<>();
-
-        // Grab input from user for a min and max and store them as elements in int[]
-        for (int counter = 1 ; counter <= thresholdNumber ; counter++ ) {
-            int[] valArr = new int[2];
-            String name = "Threshold " + Integer.toString(counter);
-
-            System.out.printf("%nInput %s minimum value:  ", name);
-            int min = input.nextInt();
-
-            System.out.printf("Input %s maximum value:  ", name);
-            int max = input.nextInt();
-            input.nextLine(); // consume dangling newline char
-
-            // TODO Need to do some validation checking if numbers are fine
-            valArr[0] = min;
-
-            /*Checks the last Threshold value if it is set to 0 and sets the value to
-             *the MAX_VALUE allowed for an integer */
-            if (counter == thresholdNumber && max == 0)
-                valArr[1] = Integer.MAX_VALUE;
-            else
-                valArr[1] = max;
-
-            thresholdList.put(name, valArr);
-        }
-        return thresholdList;
-    }
-
-    private Map<String, Integer> setPointsThreshold(Map<String, int[]> thresholdList) {
-
-        Map<String, Integer> thresholdResults = new HashMap<>();
-
-        /*Uses the thresholdLIst created as a Map container with key being String name
-        * and the value being an array of min at index 0 and max at index 1*/
-
-        for (Map.Entry<String, int[]> item : thresholdList.entrySet()) {
-            int count = 1;
-            for (Card card : cards) {
-                if (card.points >= item.getValue()[0] && card.points < item.getValue()[1]) {
-                    thresholdResults.put(item.getKey(), count++);
-                } else {
-                    thresholdResults.put(item.getKey(), 0);
-                }
-            }
-        }
-        return thresholdResults;
-    }
 
     public void showPoints() {
 
@@ -332,7 +324,7 @@ public class Shop {
 
         if (confirm == 1) {
             Map<String, int[]> thresholdList = createThresholdContainer();
-            Map<String, Integer> thresholdResults = setPointsThreshold(thresholdList);
+            Map<String, Integer> thresholdResults = calcPointsThreshold(thresholdList);
 
             for (Card card : cards)
                 totalPoints += card.getPoints();

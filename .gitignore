@@ -3,3 +3,11 @@
 /.idea/
 
 *.class
+
+Assignment1/\.idea/libraries/
+
+Assignment1/\.idea/
+
+*.iml
+
+Assignment1/nbproject/private/

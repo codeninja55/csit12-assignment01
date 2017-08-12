@@ -71,7 +71,7 @@ public class Assignment1 {
         cat2.put("Motors", 0D);
 
         Purchase anonTest = new Purchase("111","AnonCard",cat2);
-        cards.get(0).setPoints(anonTest.calcCategoriesTotal());
+        cards.get(0).calcPoints(anonTest.calcCategoriesTotal());
         purchases.add(anonTest);
 
         // BasicCard Test
@@ -87,8 +87,8 @@ public class Assignment1 {
         cat3.put("Deals", 2000D);
 
         Purchase basicTest = new Purchase("69", "BasicCard",cat3);
-        cards.get(1).setPoints(basicTest.calcCategoriesTotal());
-        cards.get(1).setBalance(basicTest.calcCategoriesTotal());
+        cards.get(1).calcPoints(basicTest.calcCategoriesTotal());
+        cards.get(1).calcBalance(basicTest.calcCategoriesTotal());
         purchases.add(basicTest);
 
         // PremiumCard Test
@@ -104,17 +104,17 @@ public class Assignment1 {
         cat4.put("Fashion", 2000D);
 
         Purchase premiumTest = new Purchase("55","PremiumCard",cat4);
-        cards.get(2).setPoints(premiumTest.calcCategoriesTotal());
-        cards.get(2).setBalance(premiumTest.calcCategoriesTotal());
+        cards.get(2).calcPoints(premiumTest.calcCategoriesTotal());
+        cards.get(2).calcBalance(premiumTest.calcCategoriesTotal());
         purchases.add(premiumTest);
 
         cards.add(new PremiumCard("75", "Tony Stark",
                 "ironman@avengers.team",1000000D));
-        cards.get(3).setPoints(9000D);
+        cards.get(3).calcPoints(9000D);
 
         cards.add(new BasicCard("1", "Steve Rogers",
                 "captain_a@avengers.team",500D));
-        cards.get(4).setPoints(100000D);
+        cards.get(4).calcPoints(100000D);
     }
 
 } // end of Assignment1 class
