@@ -20,7 +20,7 @@ public class Purchase {
 
     private Map<String, Double> categories;
 
-    /****** CONSTRUCTORS ******/
+    /*########## CONSTRUCTORS ##########*/
 
     // default constructor
     public Purchase() {
@@ -55,7 +55,7 @@ public class Purchase {
 
     } // end of constructor for card
 
-    /****** SETTERS ******/
+    /*########## SETTERS ##########*/
 
     private Date setPurchaseTime() {
         // create a java calendar instance and sets that to a Date object
@@ -70,7 +70,7 @@ public class Purchase {
         return receiptID.ints(10000000,99999999).findFirst().getAsInt();
     }
 
-    /****** GETTERS ******/
+    /*########## GETTERS ##########*/
 
     public String toString() {
 

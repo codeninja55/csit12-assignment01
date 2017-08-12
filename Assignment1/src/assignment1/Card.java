@@ -13,7 +13,7 @@ public abstract class Card {
     protected double points;
     protected String cardType;
 
-    /****** CONSTRUCTORS ******/
+    /*########## CONSTRUCTORS ##########*/
 
     // default constructor
     public Card() {
@@ -25,11 +25,11 @@ public abstract class Card {
     // constructor that initializes card properly
     public Card(String id) { this.id = id; }
 
-    /****** SETTERS ******/
+    /*########## SETTERS ##########*/
     public void calcPoints(double totalAmount) { }
     public void calcBalance(double totalAmount) { }
 
-    /****** GETTERS ******/
+    /*########## GETTERS ##########*/
     public String getCardType() { return this.cardType; }
     public double getPoints() { return this.points; }
 }

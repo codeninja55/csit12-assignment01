@@ -9,7 +9,7 @@
 public class AnonCard extends Card {
     private static final double POINTS_RATE = 0.01;
 
-    /****** CONSTRUCTORS ******/
+    /*########## CONSTRUCTORS ##########*/
 
     // default constructor
     public AnonCard() {
@@ -24,10 +24,10 @@ public class AnonCard extends Card {
         super.points = 0; // TODO change
     }
 
-    /****** SETTERS ******/
+    /*########## SETTERS ##########*/
     public void calcPoints(double totalAmount) { this.points += POINTS_RATE * totalAmount; }
 
-    /****** GETTERS ******/
+    /*########## GETTERS ##########*/
     public String toString() {
         String output = String.format("%-12s %-10s %-10.2f",
                 this.cardType, this.id, this.points);

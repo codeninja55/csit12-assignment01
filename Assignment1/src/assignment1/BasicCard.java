@@ -15,7 +15,7 @@ public class BasicCard extends Card {
     private String email;
     private double balance;
 
-    /****** CONSTRUCTORS ******/
+    /*########## CONSTRUCTORS ##########*/
 
     // default constructor
     public BasicCard() {
@@ -37,12 +37,12 @@ public class BasicCard extends Card {
         this.balance = totalAmount;
     }
 
-    /****** SETTERS ******/
+    /*########## SETTERS ##########*/
     public void calcPoints(double totalAmount) { this.points += POINTS_RATE * totalAmount; }
 
     public void calcBalance(double totalAmount) { this.balance += totalAmount; }
 
-    /****** GETTERS ******/
+    /*########## GETTERS ##########*/
     public String toString() {
 
         String output = String.format("%-12s %-10s %-10.2f %s%-14.2f %-20s %-20s",

@@ -15,7 +15,7 @@ public class PremiumCard extends Card {
     private String email;
     private double balance;
 
-    /****** CONSTRUCTORS ******/
+    /*########## CONSTRUCTORS ##########*/
 
     // default constructor
     public PremiumCard() {
@@ -37,7 +37,7 @@ public class PremiumCard extends Card {
         this.balance = totalAmount - SIGNUP_FEE;
     }
 
-    /****** SETTERS ******/
+    /*########## SETTERS ##########*/
     public void calcPoints(double totalAmount) {
         if (totalAmount < 40 && this.balance < 1000)
             this.points += totalAmount * POINTS_RATE_LOW;
@@ -47,7 +47,7 @@ public class PremiumCard extends Card {
 
     public void calcBalance(double totalAmount) { this.balance += totalAmount; }
 
-    /****** GETTERS ******/
+    /*########## GETTERS ##########*/
     public String toString() {
 
         String output = String.format("%-12s %-10s %-10.2f %s%-14.2f %-20s %-20s",

@@ -43,7 +43,7 @@ public class Assignment1 {
     } // end of main method
 
     private static void createTestCode(Shop shop) {
-        /****** TESTING CODE ******/
+        /*########## TESTING CODE ##########*/
 
         ArrayList<Card> cards = shop.getCards();
 
