@@ -44,9 +44,9 @@ public class Shop {
     /************************** SETTERS **************************/
     /*************************************************************/
 
-    public void makePurchase(String cardID) {
+    public void makePurchase(String cardID, Map<String, Double> categories) {
 
-        setCategories();
+        //setCategories();
 
         /*NOTE: Regarding ConcurrentModificationError when iterating over ArrayList
         * There are 2 options available:
