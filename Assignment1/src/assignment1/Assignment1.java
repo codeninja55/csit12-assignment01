@@ -32,22 +32,20 @@ public class Assignment1 {
                         break;
                 case 3: shop.showPurchases();
                         break;
-                case 4: shop.makePurchase();
+                //case 4: shop.makePurchase();
+                //        break;
+                case 4: shop.showTotalPurchases();
                         break;
-                case 5: shop.showTotalPurchases();
-                        break;
-                case 6: shop.showPoints();
+                case 5: shop.showPoints();
                         break;
             }
         } // end while loop
     } // end of main method
 
-    // TODO change these to using only Shop class methods
     private static void createTestCode(Shop shop) {
         /****** TESTING CODE ******/
 
         ArrayList<Card> cards = shop.getCards();
-        ArrayList<Purchase> purchases = shop.getPurchases();
 
         // Cash purchase test
         Map<String, Double> cat1 = new HashMap<>();
@@ -58,9 +56,11 @@ public class Assignment1 {
         cat1.put("Fashion", 0D);
         cat1.put("Deals", 500D);
 
-        shop.makePurchase("cash");
+        shop.makePurchase("cash", cat1);
 
         // AnonCard Test
+
+        cards.add(new AnonCard("111"));
 
         Map<String, Double> cat2 = new HashMap<>();
         cat2.put("Deals", 0D);
@@ -70,15 +70,11 @@ public class Assignment1 {
         cat2.put("Toys", 100D);
         cat2.put("Motors", 0D);
 
-        Purchase anonTest = new Purchase("111","AnonCard",cat2);
-        cards.get(0).calcPoints(anonTest.calcCategoriesTotal());
-        purchases.add(anonTest);
-
-        shop.makePurchase("111");
+        shop.makePurchase("111", cat2);
 
         // BasicCard Test
-        cards.add(new BasicCard("69", "Scarlett Johansson",
-                "scarlett@marvel.com", 0));
+        cards.add(new BasicCard("69", "Natasha Romanov",
+                "blackwidow@avengers.team", 0));
 
         Map<String, Double> cat3 = new HashMap<>();
         cat3.put("Electronics", 3000D);
@@ -88,35 +84,53 @@ public class Assignment1 {
         cat3.put("Toys", 1000D);
         cat3.put("Deals", 2000D);
 
-        Purchase basicTest = new Purchase("69", "BasicCard",cat3);
-        cards.get(1).calcPoints(basicTest.calcCategoriesTotal());
-        cards.get(1).calcBalance(basicTest.calcCategoriesTotal());
-        purchases.add(basicTest);
-
-        // PremiumCard Test
-        cards.add(new PremiumCard("55", "Andrew Che",
-                "andrew@codeninja55.me",0));
+        shop.makePurchase("69", cat3);
+        
+        // BasicCard Test 2
+        cards.add(new BasicCard("001", "Steve Rogers",
+                        "captain_a@avengers.team",0D));
 
         Map<String, Double> cat4 = new HashMap<>();
-        cat4.put("Electronics", 10000D);
-        cat4.put("Deals", 4500D);
-        cat4.put("Toys", 300D);
-        cat4.put("Motors", 10000D);
+        cat4.put("Electronics", 100D);
+        cat4.put("Fashion", 0D);
         cat4.put("Sporting Goods", 500D);
-        cat4.put("Fashion", 2000D);
+        cat4.put("Motors", 0D);
+        cat4.put("Toys", 100D);
+        cat4.put("Deals", 2000D);
 
-        Purchase premiumTest = new Purchase("55","PremiumCard",cat4);
-        cards.get(2).calcPoints(premiumTest.calcCategoriesTotal());
-        cards.get(2).calcBalance(premiumTest.calcCategoriesTotal());
-        purchases.add(premiumTest);
+        shop.makePurchase("001", cat4);
 
+        // PremiumCard Test
         cards.add(new PremiumCard("75", "Tony Stark",
-                "ironman@avengers.team",1000000D));
-        cards.get(3).calcPoints(9000D);
+                "ironman@avengers.team",0));
 
-        cards.add(new BasicCard("1", "Steve Rogers",
-                "captain_a@avengers.team",500D));
-        cards.get(4).calcPoints(100000D);
+        Map<String, Double> cat5 = new HashMap<>();
+        cat5.put("Electronics", 1000000D);
+        cat5.put("Deals", 500000D);
+        cat5.put("Toys", 300D);
+        cat5.put("Motors", 10000D);
+        cat5.put("Sporting Goods", 500D);
+        cat5.put("Fashion", 2000D);
+
+        shop.makePurchase("75", cat5);
+
+        // PremiumCard Test 2
+        cards.add(new PremiumCard("666", "Nick Fury",
+                "nick@shield.com",0));
+
+        Map<String, Double> cat6 = new HashMap<>();
+        cat6.put("Electronics", 10000D);
+        cat6.put("Deals", 0D);
+        cat6.put("Toys", 300D);
+        cat6.put("Motors", 1000000D);
+        cat6.put("Sporting Goods", 500D);
+        cat6.put("Fashion", 2000D);
+
+        shop.makePurchase("666", cat6);
+
+        cards.add(new BasicCard("444","Hank Pym","ants@avengers.team",0));
+        cards.add(new BasicCard("88","Peter Parker", "spidey@avengers.team",0));
+
     }
 
 } // end of Assignment1 class

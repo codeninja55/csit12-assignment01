@@ -32,13 +32,6 @@ public class Shop {
         this.createCategories(userCategories(true));
     }
 
-    // constructor for custom categoriess
-    public Shop(boolean auto) {
-        this.purchases = new ArrayList<Purchase>();
-        this.cards = new ArrayList<Card>();
-        this.categories = new HashMap<String, Double>();
-        this.createCategories(userCategories(auto));
-    }
 
     /*************************************************************/
     /************************** SETTERS **************************/
@@ -110,21 +103,17 @@ public class Shop {
                     "Type [ default ] to use a template list.",
                     "Template: Deals, Electronics, Toys, Sporting Goods, Fashion, Motors",
                     "***** Type [ finished ] or [ x ] to save and quit *****");
+            System.out.print(">  ");
 
             while (input.hasNextLine()) {
+                System.out.print(">  ");
                 option = input.nextLine();
 
                 if (option.equalsIgnoreCase("x") ||
                         option.equalsIgnoreCase("finished")) {
                     break;
-                } else if (option.equalsIgnoreCase("default")) {
-                    categoriesList.add("Motors");
-                    categoriesList.add("Electronics");
-                    categoriesList.add("Fashion");
-                    categoriesList.add("Toys");
-                    categoriesList.add("Sporting Goods");
-                    categoriesList.add("Deals");
-                    break;
+                } else if (option.equalsIgnoreCase("default") || option.equals("")) {
+                    userCategories(true);
                 } else {
                     categoriesList.add(option);
                 }
@@ -248,14 +237,13 @@ public class Shop {
         purchases.add(newPurchase);
     } // end of createCard method
 
-
     private Map<String, int[]> createThresholdContainer() {
 
         System.out.printf("%n%s%n%s%n%s%n%s%n%s",
                 "You can set the Points Threshold as follows:",
                 "1. Give a number of thresholds.",
-                "2. Give the minimum value for a threshold (For threshold 1, 0 for no minimum).",
-                "3. Give the maximum value for a threshold (For final threshold, 0 for no maximum).",
+                "2. Give the minimum value for a threshold (for Threshold 1, 0 for no minimum).",
+                "3. Give the maximum value for a threshold (for final Threshold, 0 for no maximum).",
                 "4. Repeat until number of thresholds have a min and max value.");
 
         System.out.print("\n\nInput the number of thresholds:  ");
@@ -346,17 +334,22 @@ public class Shop {
         for (Map.Entry<String, Double> item : categories.entrySet())
             categoryTotal.put(item.getKey(), new ArrayList<>());
 
+        // Loop through purchase ArrayList and get the categories from each purchase
         for (Purchase purchase : purchases) {
             Map<String, Double> categoriesMap = purchase.getCategoriesMap();
 
+            System.out.println(categoriesMap);
+
+            /* Lopp through the categories stored in purchase and add them to the ArrayList of
+             * of the default categories map */
             for (Map.Entry<String, Double> item : categoriesMap.entrySet())
                 categoryTotal.get(item.getKey()).add(item.getValue());
         }
 
         /*Loop through each List and sum them together to print*/
-
-        double sum = 0;
         for (Map.Entry<String, ArrayList<Double>> item : categoryTotal.entrySet()) {
+            double sum = 0;
+
             for (Double values : item.getValue())
                 sum += values;
 
