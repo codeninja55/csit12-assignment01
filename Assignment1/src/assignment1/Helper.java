@@ -58,9 +58,9 @@ public class Helper {
                 "[ 1 ] Create Customer Categories\n" +
                 "[ 2 ] Show All Cards\n" +
                 "[ 3 ] Show All Purchases\n" +
-                "[ 4 ] Add Purchase\n" +
-                "[ 5 ] Show Total Purchases\n" +
-                "[ 6 ] Show Customer Points\n");
+                //"[ 4 ] Add Purchase\n" +
+                "[ 4 ] Show Total Purchases\n" +
+                "[ 5 ] Show Customer Points\n");
         System.out.println("\n******************************");
     }
 
