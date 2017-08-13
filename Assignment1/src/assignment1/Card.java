@@ -22,12 +22,16 @@ public abstract class Card {
         this.cardType = "Card";
     }
 
-    // constructor that initializes card properly
-    public Card(String id) { this.id = id; }
+    // constructor to overload
+    public Card(String id, double points, String cardType) {
+        this.id = id;
+        this.points = points;
+        this.cardType = cardType;
+    }
 
     /*########## SETTERS ##########*/
-    public void calcPoints(double totalAmount) { }
-    public void calcBalance(double totalAmount) { }
+    public abstract void calcPoints(double totalAmount);
+    public void calcBalance(double totalAmount) {}
 
     /*########## GETTERS ##########*/
     public String getCardType() { return this.cardType; }

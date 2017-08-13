@@ -19,9 +19,7 @@ public class BasicCard extends Card {
 
     // default constructor
     public BasicCard() {
-        super.cardType = "BasicCard";
-        super.id = null;
-        super.points = 0;
+        super(null,0, "BasicCard");
         this.name = "";
         this.email = "";
         this.balance = 0;
@@ -29,9 +27,7 @@ public class BasicCard extends Card {
 
     // constructor with for new cards without purchase
     public BasicCard(String id, String name, String email, double totalAmount) {
-        super.id = id;
-        super.cardType = "BasicCard";
-        super.points = 0;
+        super(id,0,"BasicCard");
         this.name = name;
         this.email = email;
         this.balance = totalAmount;
@@ -44,10 +40,7 @@ public class BasicCard extends Card {
 
     /*########## GETTERS ##########*/
     public String toString() {
-
-        String output = String.format("%-12s %-10s %-10.2f %s%-14.2f %-20s %-20s",
+        return String.format("%-12s %-10s %-10.2f %s%-14.2f %-20s %-20s",
                 this.cardType,this.id,this.points,"$",this.balance,this.name,this.email);
-
-        return output;
     }
 }

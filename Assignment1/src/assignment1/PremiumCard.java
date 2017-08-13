@@ -19,9 +19,7 @@ public class PremiumCard extends Card {
 
     // default constructor
     public PremiumCard() {
-        super.id = null;
-        super.cardType = "PremiumCard";
-        super.points = 0;
+        super(null,0,"PremiumCard");
         this.name = "";
         this.email = "";
         this.balance = 0;
@@ -29,9 +27,7 @@ public class PremiumCard extends Card {
 
     // constructor with details
     public PremiumCard(String id, String name, String email, double totalAmount) {
-        super.id = id;
-        super.cardType = "PremiumCard";
-        super.points = 0;
+        super(id,0,"PremiumCard");
         this.name = name;
         this.email = email;
         this.balance = totalAmount - SIGNUP_FEE;
@@ -49,10 +45,7 @@ public class PremiumCard extends Card {
 
     /*########## GETTERS ##########*/
     public String toString() {
-
-        String output = String.format("%-12s %-10s %-10.2f %s%-14.2f %-20s %-20s",
+        return String.format("%-12s %-10s %-10.2f %s%-14.2f %-20s %-20s",
                 this.cardType,this.id,this.points,"$",this.balance,this.name,this.email);
-
-        return output;
     }
 }

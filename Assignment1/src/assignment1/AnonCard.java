@@ -12,26 +12,15 @@ public class AnonCard extends Card {
     /*########## CONSTRUCTORS ##########*/
 
     // default constructor
-    public AnonCard() {
-        super.id = null;
-        super.cardType = "AnonCard";
-        super.points = 0;
-    }
+    public AnonCard() { super(null,0,"AnonCard"); }
 
-    public AnonCard(String id) {
-        super.cardType = "AnonCard";
-        super.id = id;
-        super.points = 0; // TODO change
-    }
+    public AnonCard(String id) { super(id,0,"AnonCard"); }
 
     /*########## SETTERS ##########*/
     public void calcPoints(double totalAmount) { this.points += POINTS_RATE * totalAmount; }
 
     /*########## GETTERS ##########*/
     public String toString() {
-        String output = String.format("%-12s %-10s %-10.2f",
-                this.cardType, this.id, this.points);
-
-        return output;
+        return String.format("%-12s %-10s %-10.2f",this.cardType, this.id, this.points);
     }
 }
