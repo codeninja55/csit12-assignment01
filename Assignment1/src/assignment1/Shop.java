@@ -1,8 +1,5 @@
 //package assignment1;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 
 /*
@@ -47,6 +44,8 @@ public class Shop {
 
     public void makePurchase(String cardID, Map<String, Double> categories) {
 
+        /*NOTE: If using inputs, then setCategories() would allow user to input
+        *       Total Amount for each category*/
         //setCategories();
 
         /*NOTE: Regarding ConcurrentModificationError when iterating over ArrayList
@@ -89,6 +88,9 @@ public class Shop {
         }
     } // end of makePurchase method
 
+    /*This method allows users to create a whole new set of categories
+    * or add to the currently stored categories after putting the ArrayList
+    * through the createCategories method to store them as a hashmap.*/
     public ArrayList<String> userCategories(boolean auto) {
         ArrayList<String> categoriesList = new ArrayList<>();
         String option;
@@ -139,11 +141,14 @@ public class Shop {
         }
     } // end of userCategories method
 
+    /*This method takes the ArrayList from the userCategories method and adds or creates
+    * them to store in the hashmap instance variable categories*/
     public void createCategories(ArrayList<String> categoriesList) {
         for (String item : categoriesList)
             this.categories.put(item, 0D);
     }
 
+    /*This method allows user to input the total amount for each category*/
     private void setCategories() {
 
         /*Creates a new HashMap for the Menu
@@ -159,7 +164,7 @@ public class Shop {
         }
 
         /*Displays the menu to the screen and through options of categories for user
-        * to select with an int input. It will then remove than item form the menu
+        * to select with an int input. It will then remove than item fromm the menu
         * HashMap so the user cannot input a value twice. Exits loop when user enters 0
         * or presses enter on a blank newline character */
         while (true) {
@@ -253,8 +258,7 @@ public class Shop {
                 "3. Give the maximum value for a threshold (for final Threshold, 0 for no maximum).",
                 "4. Repeat until number of thresholds have a min and max value.");
 
-        System.out.print("\n\nInput the number of thresholds:  ");
-        int thresholdNumber = input.nextInt();
+        int thresholdNumber = Helper.thresholdInput("\nInput the number of thresholds:  ");
 
         Map<String, int[]> thresholdList = new HashMap<>();
 
@@ -262,21 +266,10 @@ public class Shop {
         for (int counter = 1 ; counter <= thresholdNumber ; counter++ ) {
             int[] valArr = new int[2];
             String name = "Threshold " + Integer.toString(counter);
-            boolean minSentinel = false;
-            boolean maxSentinel = false;
 
-            // TODO need to fix something here. Probably separate into helper method for recursion
-            do {
-                System.out.printf("%nInput %s minimum value:  ", name);
-                int min = input.nextInt();
-                
-                minSentinel = false;
-            } while(minSentinel);
-
-
-            System.out.printf("Input %s maximum value:  ", name);
-            int max = input.nextInt();
-            input.nextLine(); // consume dangling newline char
+            /*Using the helper method to check for validation and empty strings*/
+            int min = Helper.thresholdInput(String.format("%nInput %s minimum value:  ", name));
+            int max = Helper.thresholdInput(String.format("Input %s maximum value:  ", name));
 
             // TODO Need to do some validation checking if numbers are fine
             valArr[0] = min;
@@ -297,17 +290,17 @@ public class Shop {
 
         Map<String, Integer> thresholdResults = new HashMap<>();
 
-        /*Uses the thresholdLIst created as a Map container with key being String name
-        * and the value being an array of min at index 0 and max at index 1*/
+        /*Populate the map with just the keys and iniatialize the value to 0*/
+        for (Map.Entry<String, int[]> item : thresholdList.entrySet())
+            thresholdResults.put(item.getKey(), 0);
 
-        for (Map.Entry<String, int[]> item : thresholdList.entrySet()) {
-            int count = 1;
-            for (Card card : cards) {
-                if (card.points >= item.getValue()[0] && card.points < item.getValue()[1]) {
-                    thresholdResults.put(item.getKey(), count++);
-                } else {
-                    thresholdResults.put(item.getKey(), 0);
-                }
+        for (Card card : cards) {
+            for (Map.Entry<String, int[]> item : thresholdList.entrySet()) {
+
+                /*If the card.points is in the range of the min at index 0 and max at index 1
+                * increase the thresholdResults value by 1*/
+                if (card.points >= item.getValue()[0] && card.points < item.getValue()[1])
+                    thresholdResults.put(item.getKey(), thresholdResults.get(item.getKey()) + 1);
             }
         }
         return thresholdResults;
@@ -379,13 +372,13 @@ public class Shop {
 
         double totalPoints = 0;
 
-        // prompt user if they would like to make a new threshold <-- put this in Helper class
+        // prompt user if they would like to make a new threshold
         // otherwise default to the ones already created below
 
         System.out.printf("%n%s%n%s%n%s%n%s","Default Points Threshold Levels:",
                 "Low (less than 500", "Medium (between 500 and 2000", "High (more than 2000)");
 
-        int confirm = Helper.confirm("Do you wish to change the points threshold levels? [Y/n]: ");
+        int confirm = Helper.confirm("\nDo you wish to change the points threshold levels? [Y/n]: ");
 
         if (confirm == 1) {
             Map<String, int[]> thresholdList = createThresholdContainer();
@@ -397,15 +390,13 @@ public class Shop {
             System.out.printf("%n%nTotal Points for All Customers: %.2f%n%n", totalPoints);
             System.out.println("Customers by Thresholds");
 
+            /*Print out the list based on the stored results in thresholdResults HashMap*/
             for (Map.Entry<String, Integer> item : thresholdResults.entrySet()) {
                 System.out.printf("%n%s (Min: %d; Max: %d): %d",
                         item.getKey(), thresholdList.get(item.getKey())[0],
                         thresholdList.get(item.getKey())[1], item.getValue());
             }
-
-            System.out.println("\n" + thresholdList);
-            System.out.println(thresholdResults);
-
+            System.out.print("\n\n");
         } else if (confirm == 0) {
             // Default points thresholds by customer
             int low = 0;
