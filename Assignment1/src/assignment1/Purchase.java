@@ -26,33 +26,27 @@ public class Purchase {
     public Purchase() {
         this.receiptID = setReceiptID();
         this.cardID = "";
-        this.cardType = "AnonCard";
+        this.cardType = null;
         this.purchaseTime = setPurchaseTime();
         this.categories = new HashMap<>();
     }
 
     // constructor for cash purchases
     public Purchase(Map<String, Double> categories) {
-
         this.receiptID = setReceiptID();
         this.cardID = null;
         this.cardType = "Cash";
         this.categories = categories;
-
         this.purchaseTime = setPurchaseTime();
-
     } // end of constructor for cash
 
     // constructor for card purchases
     public Purchase(String cardID, String cardType, Map<String, Double> categories) {
-
         this.receiptID = setReceiptID();
         this.cardID = cardID;
         this.cardType = cardType;
         this.categories = categories;
-
         this.purchaseTime = setPurchaseTime();
-
     } // end of constructor for card
 
     /*########## SETTERS ##########*/
@@ -74,11 +68,7 @@ public class Purchase {
 
     public String toString() {
 
-        String output;
-        String firstOutput;
-        String secondOutput = "";
-
-        firstOutput = String.format(
+        String firstOutput = String.format(
                 "%n%-20s %s" +
                 "%n%-20s %s" +
                 "%n%-20s %s" +
@@ -88,14 +78,12 @@ public class Purchase {
                 "Card Type:",this.cardType,
                 "Purchase Time:",this.purchaseTime);
 
-        for (Map.Entry<String, Double> item : this.categories.entrySet()) {
-            secondOutput += String.format("%n%-20s $%.2f", (item.getKey() + ":"),
-                    item.getValue());
-        }
+        String secondOutput = "";
 
-        output = firstOutput + secondOutput;
+        for (Map.Entry<String, Double> item : this.categories.entrySet())
+            secondOutput += String.format("%n%-20s $%.2f", (item.getKey() + ":"), item.getValue());
 
-        return output;
+        return firstOutput + secondOutput;
     }
 
     public double calcCategoriesTotal() {
