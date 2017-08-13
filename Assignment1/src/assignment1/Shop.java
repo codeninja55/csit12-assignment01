@@ -1,6 +1,11 @@
 //package assignment1;
-import java.util.*;
-
+import java.util.Random;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
  *
@@ -15,6 +20,7 @@ public class Shop {
     private ArrayList<Card> cards;
     private ArrayList<Purchase> purchases;
     private Map<String, Double> categories;
+    private Set<Integer> receiptSet;
     private Scanner input = new Scanner(System.in);
 
     /*###########################################################*/
@@ -26,6 +32,7 @@ public class Shop {
         this.purchases = new ArrayList<>();
         this.cards = new ArrayList<>();
         this.categories = new HashMap<>();
+        this.receiptSet = new HashSet<>();
         this.createCategories(userCategories(true));
     }
 
@@ -34,15 +41,32 @@ public class Shop {
         this.purchases = new ArrayList<>();
         this.cards = new ArrayList<>();
         this.categories = new HashMap<>();
+        this.receiptSet = new HashSet<>();
         this.createCategories(userCategories(auto));
     }
-
 
     /*###########################################################*/
     /*######################### SETTERS #########################*/
     /*###########################################################*/
 
+    /*This method generates a receiptID and checks if that ID has already been generated
+    * and placed in the receiptSet instance variable*/
+    private int generateReceiptID() {
+        Random randomObj = new Random();
+
+        int receiptID = randomObj.ints(10000000,99999999).findFirst().getAsInt();
+
+        if (receiptSet.contains(receiptID)) {
+            return generateReceiptID();
+        } else {
+            receiptSet.add(receiptID);
+            return receiptID;
+        }
+    }
+
     public void makePurchase(String cardID, Map<String, Double> categories) {
+
+        int receiptID = generateReceiptID();
 
         /*NOTE: If using inputs, then setCategories() would allow user to input
         *       Total Amount for each category*/
@@ -61,7 +85,7 @@ public class Shop {
 
         if (cardID.equalsIgnoreCase("cash")) {
             /* If it just a cash purchase, no updates required to card */
-            purchases.add(new Purchase(categories));
+            purchases.add(new Purchase(categories, receiptID));
         } else {
             /* Loop through cards ArrayList to validate for existing cards
              * if the card does not exist, prompt user to make one. */
@@ -69,7 +93,7 @@ public class Shop {
 
                 if (card.id.equals(cardID)) {
                     String cardType = card.cardType;
-                    Purchase newPurchase = new Purchase(cardID, cardType, categories);
+                    Purchase newPurchase = new Purchase(cardID,cardType,categories,receiptID);
                     card.calcPoints(newPurchase.calcCategoriesTotal());
 
                     if (!cardType.equalsIgnoreCase("AnonCard"))
@@ -207,7 +231,7 @@ public class Shop {
         String cardChoice = Helper.cardSelection();
         input.nextLine(); // consume newline character leftover from nextInt()
 
-        Purchase newPurchase = new Purchase(cardID, cardChoice, categories);
+        Purchase newPurchase = new Purchase(cardID, cardChoice, categories, generateReceiptID());
         double totalAmount = newPurchase.calcCategoriesTotal();
 
         if (cardChoice.isEmpty()) {
@@ -309,6 +333,7 @@ public class Shop {
     /*###########################################################*/
     /*######################### GETTERS #########################*/
     /*###########################################################*/
+
     public ArrayList<Card> getCards() { return cards; }
 
     public ArrayList<Purchase> getPurchases() { return purchases; }
@@ -366,7 +391,6 @@ public class Shop {
 
         System.out.println("\n\n");
     }
-
 
     public void showPoints() {
 
