@@ -1,5 +1,7 @@
 //package assignment1;
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.lang.String;
 
 /*
  * @author Dinh Che
@@ -44,7 +46,7 @@ public class Helper {
         } else if (confirm.equalsIgnoreCase("n")){
             return 0;
         } else {
-            System.out.print("\nPlease only input y or no [press enter for default(Y)]: ");
+            System.out.print("\nPlease only input y or n [press enter for default(Y)]: ");
             return confirm(message);
         }
     }
@@ -83,6 +85,25 @@ public class Helper {
             case 2: return "BasicCard";
             case 3: return "PremiumCard";
             default: return "";
+        }
+    }
+
+    static int thresholdInput(String message) {
+        System.out.printf("%n%s", message);
+
+        String value = input.nextLine();
+
+        try {
+            if (value.isEmpty()) {
+                System.out.printf("%n%s", "You provided an empty input. Please try again.");
+                return thresholdInput(message);
+            } else {
+                return Integer.parseInt(value);
+            }
+
+        } catch (NumberFormatException nfe) {
+            System.out.printf("%n%s", "You did not provide an integer. Please try again.");
+            return thresholdInput(message);
         }
     }
 }
