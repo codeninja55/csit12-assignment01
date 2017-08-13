@@ -1,4 +1,4 @@
-//package assignment1;
+package assignment1;
 import java.util.Random;
 import java.util.Map;
 import java.util.HashMap;
@@ -157,11 +157,10 @@ public class Shop {
             for (String item : categoriesList)
                 System.out.println(item);
 
-            if (Helper.confirm("Do you wish to continue? [Y/n]: ") == 1) {
+            if (Helper.confirm("Do you wish to continue? [Y/n]: ") == 1)
                 return categoriesList;
-            } else {
+            else
                 return userCategories(false);
-            }
         }
     } // end of userCategories method
 
@@ -370,8 +369,6 @@ public class Shop {
         // Loop through purchase ArrayList and get the categories from each purchase
         for (Purchase purchase : purchases) {
             Map<String, Double> categoriesMap = purchase.getCategoriesMap();
-
-            System.out.println(categoriesMap);
 
             /* Loop through the categories stored in purchase and add them to the ArrayList of
              * of the default categories map */

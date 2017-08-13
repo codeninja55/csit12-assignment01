@@ -1,5 +1,4 @@
-//package assignment1;
-
+package assignment1;
 /*
  * @author Dinh Che
  * Student Number: 5721970

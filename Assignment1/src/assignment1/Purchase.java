@@ -1,4 +1,4 @@
-//package assignment1;
+package assignment1;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Date;
@@ -11,9 +11,9 @@ import java.util.Calendar;
  */
 
 public class Purchase {
-    private int receiptID;
-    private String cardID;
-    private String cardType;
+    private final int receiptID;
+    private final String cardID;
+    private final String cardType;
 
     private Date purchaseTime;
 
