@@ -3,7 +3,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Date;
 import java.util.Calendar;
-import java.util.Random;
 
 /*
  * @author Dinh Che
@@ -24,7 +23,7 @@ public class Purchase {
 
     // default constructor
     public Purchase() {
-        this.receiptID = setReceiptID();
+        this.receiptID = 0;
         this.cardID = "";
         this.cardType = null;
         this.purchaseTime = setPurchaseTime();
@@ -32,8 +31,8 @@ public class Purchase {
     }
 
     // constructor for cash purchases
-    public Purchase(Map<String, Double> categories) {
-        this.receiptID = setReceiptID();
+    public Purchase(Map<String, Double> categories, int receiptID) {
+        this.receiptID = receiptID;
         this.cardID = null;
         this.cardType = "Cash";
         this.categories = categories;
@@ -41,8 +40,8 @@ public class Purchase {
     } // end of constructor for cash
 
     // constructor for card purchases
-    public Purchase(String cardID, String cardType, Map<String, Double> categories) {
-        this.receiptID = setReceiptID();
+    public Purchase(String cardID, String cardType, Map<String, Double> categories, int receiptID) {
+        this.receiptID = receiptID;
         this.cardID = cardID;
         this.cardType = cardType;
         this.categories = categories;
@@ -57,11 +56,6 @@ public class Purchase {
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         return now;
-    }
-
-    private int setReceiptID() {
-        Random receiptID = new Random();
-        return receiptID.ints(10000000,99999999).findFirst().getAsInt();
     }
 
     /*########## GETTERS ##########*/
