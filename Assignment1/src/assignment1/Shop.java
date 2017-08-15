@@ -272,6 +272,8 @@ public class Shop {
         purchases.add(newPurchase);
     } // end of createCard method
 
+    /*This method creates a container to store the number of thresholds with
+     *each being a String for the key and an 2 int Array for min and max values*/
     private Map<String, int[]> createThresholdContainer() {
 
         System.out.printf("%n%s%n%s%n%s%n%s%n%s",
@@ -283,6 +285,7 @@ public class Shop {
 
         int thresholdNumber = Helper.thresholdInput("\nInput the number of thresholds:  ");
 
+        /*HashMap to store each threshold and its min and max values*/
         Map<String, int[]> thresholdList = new HashMap<>();
 
         // Grab input from user for a min and max and store them as elements in int[]
@@ -385,7 +388,6 @@ public class Shop {
 
             System.out.printf("%n%-20s $%.2f", (item.getKey() + ":"), sum);
         }
-
         System.out.println("\n\n");
     }
 

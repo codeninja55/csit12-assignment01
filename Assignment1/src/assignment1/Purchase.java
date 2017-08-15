@@ -56,10 +56,10 @@ public class Purchase {
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         return now;
-    }
+    } // end of setPurchaseTime method
 
     /*########## GETTERS ##########*/
-
+ 
     public String toString() {
 
         String firstOutput = String.format(
@@ -90,5 +90,4 @@ public class Purchase {
     }
 
     public Map<String, Double> getCategoriesMap() { return this.categories; }
-
 }

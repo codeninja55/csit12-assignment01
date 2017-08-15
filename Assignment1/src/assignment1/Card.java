@@ -29,6 +29,7 @@ public abstract class Card {
     }
 
     /*########## SETTERS ##########*/
+    /*Abstract method to force implementation in all subclasses*/
     public abstract void calcPoints(double totalAmount);
     public void calcBalance(double totalAmount) {}
 
