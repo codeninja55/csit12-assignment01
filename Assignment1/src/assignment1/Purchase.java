@@ -50,7 +50,7 @@ public class Purchase {
 
     /*########## SETTERS ##########*/
 
-    private Date setPurchaseTime() {
+    private final Date setPurchaseTime() {
         // create a java calendar instance and sets that to a Date object
         // REFERENCE: https://alvinalexander.com/java/java-timestamp-example-current-time-now
         Calendar calendar = Calendar.getInstance();
@@ -60,6 +60,7 @@ public class Purchase {
 
     /*########## GETTERS ##########*/
  
+    @Override
     public String toString() {
 
         String firstOutput = String.format(

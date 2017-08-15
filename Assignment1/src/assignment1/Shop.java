@@ -163,7 +163,7 @@ public class Shop {
     /*This method allows users to create a whole new set of categories
     * or add to the currently stored categories after putting the ArrayList
     * through the createCategories method to store them as a hashmap.*/
-    public ArrayList<String> userCategories(boolean auto) {
+    public final ArrayList<String> userCategories(boolean auto) {
         ArrayList<String> categoriesList = new ArrayList<>();
         String option;
 
@@ -214,7 +214,7 @@ public class Shop {
 
     /*This method takes the ArrayList from the userCategories method and adds or creates
     * them to store in the hashmap instance variable categories*/
-    public void createCategories(ArrayList<String> categoriesList) {
+    public final void createCategories(ArrayList<String> categoriesList) {
         for (String item : categoriesList)
             this.categories.put(item, 0D);
     }
