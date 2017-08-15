@@ -33,6 +33,7 @@ public class PremiumCard extends Card {
     }
 
     /*########## SETTERS ##########*/
+    @Override
     public void calcPoints(double totalAmount) {
         if (totalAmount < 40 && this.balance < 1000)
             this.points += totalAmount * POINTS_RATE_LOW;
@@ -40,9 +41,11 @@ public class PremiumCard extends Card {
             this.points += totalAmount * POINTS_RATE_HIGH;
     }
 
+    @Override
     public void calcBalance(double totalAmount) { this.balance += totalAmount; }
 
     /*########## GETTERS ##########*/
+    @Override
     public String toString() {
         return String.format("%-12s %-10s %-10.2f %s%-14.2f %-20s %-20s",
                 this.cardType,this.id,this.points,"$",this.balance,this.name,this.email);

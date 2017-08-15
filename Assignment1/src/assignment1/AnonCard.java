@@ -16,9 +16,11 @@ public class AnonCard extends Card {
     public AnonCard(String id) { super(id,0,"AnonCard"); }
 
     /*########## SETTERS ##########*/
+    @Override
     public void calcPoints(double totalAmount) { this.points += POINTS_RATE * totalAmount; }
 
     /*########## GETTERS ##########*/
+    @Override
     public String toString() {
         return String.format("%-12s %-10s %-10.2f",this.cardType, this.id, this.points);
     }

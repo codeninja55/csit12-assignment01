@@ -33,8 +33,10 @@ public class BasicCard extends Card {
     }
 
     /*########## SETTERS ##########*/
+    @Override
     public void calcPoints(double totalAmount) { this.points += POINTS_RATE * totalAmount; }
 
+    @Override
     public void calcBalance(double totalAmount) { this.balance += totalAmount; }
 
     /*########## GETTERS ##########*/
