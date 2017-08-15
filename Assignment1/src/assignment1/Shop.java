@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
- *
  * @author Dinh Che
  * Student Number: 5721970
  * Email: dbac496@uowmail.edu.au
- *
  */
 
 public class Shop {
@@ -111,6 +109,56 @@ public class Shop {
             }
         }
     } // end of makePurchase method
+    
+    private void createCard(String cardID, Map<String, Double> categories) {
+
+        String name, email;
+        Card newCard;
+
+        String cardChoice = Helper.cardSelection();
+        input.nextLine(); // consume newline character leftover from nextInt()
+
+        Purchase newPurchase = new Purchase(cardID, cardChoice, categories, generateReceiptID());
+        double totalAmount = newPurchase.calcCategoriesTotal();
+
+        if (cardChoice.isEmpty()) {
+            System.out.println("\nExiting from creating card...");
+        } else if (cardChoice.equalsIgnoreCase("AnonCard")) {
+            System.out.println("\nCreating an Anon Card");
+
+            newCard = new AnonCard(cardID);
+
+            newCard.calcPoints(totalAmount);
+            cards.add(newCard);
+
+        } else {
+
+            if (cardChoice.equalsIgnoreCase("BasicCard")) {
+                System.out.println("\nCreating a Basic Card");
+            } else {
+                System.out.println("\nCreating a Premium Card");
+                System.out.println("Please note there is a $25.0 fee to sign up.");
+                System.out.println("This will be added to your purchase.");
+            }
+
+            System.out.print("\nEnter Customer Name:  ");
+            name = input.nextLine();
+
+            System.out.print("\nEnter Customer Email:  ");
+            email = input.nextLine();
+
+            if (cardChoice.equalsIgnoreCase("BasicCard"))
+                newCard = new BasicCard(cardID, name, email, totalAmount);
+            else
+                newCard = new PremiumCard(cardID, name, email, totalAmount);
+
+            newCard.calcPoints(totalAmount);
+
+            cards.add(newCard);
+        }
+
+        purchases.add(newPurchase);
+    } // end of createCard method
 
     /*This method allows users to create a whole new set of categories
     * or add to the currently stored categories after putting the ArrayList
@@ -221,56 +269,6 @@ public class Shop {
             }
         }
     } // end of setCategories method
-
-    private void createCard(String cardID, Map<String, Double> categories) {
-
-        String name, email;
-        Card newCard;
-
-        String cardChoice = Helper.cardSelection();
-        input.nextLine(); // consume newline character leftover from nextInt()
-
-        Purchase newPurchase = new Purchase(cardID, cardChoice, categories, generateReceiptID());
-        double totalAmount = newPurchase.calcCategoriesTotal();
-
-        if (cardChoice.isEmpty()) {
-            System.out.println("\nExiting from creating card...");
-        } else if (cardChoice.equalsIgnoreCase("AnonCard")) {
-            System.out.println("\nCreating an Anon Card");
-
-            newCard = new AnonCard(cardID);
-
-            newCard.calcPoints(totalAmount);
-            cards.add(newCard);
-
-        } else {
-
-            if (cardChoice.equalsIgnoreCase("BasicCard")) {
-                System.out.println("\nCreating a Basic Card");
-            } else {
-                System.out.println("\nCreating a Premium Card");
-                System.out.println("Please note there is a $25.0 fee to sign up.");
-                System.out.println("This will be added to your purchase.");
-            }
-
-            System.out.print("\nEnter Customer Name:  ");
-            name = input.nextLine();
-
-            System.out.print("\nEnter Customer Email:  ");
-            email = input.nextLine();
-
-            if (cardChoice.equalsIgnoreCase("BasicCard"))
-                newCard = new BasicCard(cardID, name, email, totalAmount);
-            else
-                newCard = new PremiumCard(cardID, name, email, totalAmount);
-
-            newCard.calcPoints(totalAmount);
-
-            cards.add(newCard);
-        }
-
-        purchases.add(newPurchase);
-    } // end of createCard method
 
     /*This method creates a container to store the number of thresholds with
      *each being a String for the key and an 2 int Array for min and max values*/

@@ -100,7 +100,6 @@ public class Helper {
             } else {
                 return Integer.parseInt(value);
             }
-
         } catch (NumberFormatException nfe) {
             System.out.printf("%n%s", "You did not provide an integer. Please try again.");
             return thresholdInput(message);
