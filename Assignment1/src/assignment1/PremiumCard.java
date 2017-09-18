@@ -1,4 +1,4 @@
-package assignment1;
+//package assignment1;
 /*
  * @author Dinh Che
  * Student Number: 5721970
@@ -29,7 +29,7 @@ public class PremiumCard extends Card {
         super(id,0,"PremiumCard");
         this.name = name;
         this.email = email;
-        this.balance = totalAmount - SIGNUP_FEE;
+        this.balance = totalAmount; //- SIGNUP_FEE; - we were told to ignore this
     }
 
     /*########## SETTERS ##########*/

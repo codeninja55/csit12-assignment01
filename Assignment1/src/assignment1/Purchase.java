@@ -1,4 +1,4 @@
-package assignment1;
+//package assignment1;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Date;
@@ -59,7 +59,7 @@ public class Purchase {
     } // end of setPurchaseTime method
 
     /*########## GETTERS ##########*/
- 
+
     @Override
     public String toString() {
 

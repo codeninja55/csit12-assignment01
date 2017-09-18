@@ -1,4 +1,4 @@
-package assignment1;
+//package assignment1;
 /*
  * @author Dinh Che
  * Student Number: 5721970
@@ -29,11 +29,11 @@ public abstract class Card {
     /*########## SETTERS ##########*/
     /*Abstract method to force implementation in all subclasses*/
     public abstract void calcPoints(double totalAmount);
-    
+
     public void calcBalance(double totalAmount) {}
 
     /*########## GETTERS ##########*/
     public String getCardType() { return this.cardType; }
-    
+
     public double getPoints() { return this.points; }
 }

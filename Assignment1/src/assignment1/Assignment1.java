@@ -1,4 +1,4 @@
-package assignment1;
+//package assignment1;
 import java.util.*;
 
 /*
@@ -85,7 +85,7 @@ public class Assignment1 {
         cat3.put("Deals", 2000D);
 
         shop.makePurchase("69", cat3);
-        
+
         // BasicCard Test 2
         cards.add(new BasicCard("001", "Steve Rogers",
                         "captain_a@avengers.team",0D));

@@ -1,4 +1,4 @@
-package assignment1;
+//package assignment1;
 import java.util.Random;
 import java.util.Map;
 import java.util.HashMap;
@@ -109,7 +109,7 @@ public class Shop {
             }
         }
     } // end of makePurchase method
-    
+
     private void createCard(String cardID, Map<String, Double> categories) {
 
         String name, email;
